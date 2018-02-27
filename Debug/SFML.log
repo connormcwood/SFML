@@ -1,7 +1,4 @@
-﻿  Definitions.cpp
-  Generating Code...
-  Compiling...
-  main.cpp
-  SplashState.cpp
+﻿  SplashState.cpp
+  AssetManager.cpp
   Generating Code...
   SFML.vcxproj -> C:\repos\SFML\Debug\SFML.exe

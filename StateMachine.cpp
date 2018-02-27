@@ -32,9 +32,10 @@ void StateMachine::ProcessStateChanges()
 		if ( !this->_states.empty())
 		{
 			this->_states.top()->Resume();
-		}
-		this->_isRemoving = false;
+		}		
 	}
+
+	this->_isRemoving = false;
 
 	if (this->_isAdding)
 	{
