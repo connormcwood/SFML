@@ -14,6 +14,7 @@ struct GameData
 	InputManager input;
 };
 
+
 typedef std::shared_ptr<GameData> GameDataRef;
 
 class Game

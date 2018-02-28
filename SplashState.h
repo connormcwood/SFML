@@ -15,17 +15,14 @@ public:
 	void HandleInput();
 	void Update(float dt);
 	void Draw(float dt);
-	int LoadXML();
 
 private:
 	GameDataRef _data;
-
 	sf::Clock _clock;
 	sf::Sprite _background;
 	sf::Sprite _test;
 
-	float _status;
-
+	sf::Clock _track;
 };
 
 
