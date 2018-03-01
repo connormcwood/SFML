@@ -52,8 +52,7 @@ int AssetManager::LoadSpriteSheet(std::string name, std::string fileName, const 
 	}
 
 	pugi::xml_node textures = doc.child("TextureAtlas");
-			
-	std::cout << textures.select_nodes("SubTexture").size() << std::endl;
+
 	float total = textures.select_nodes("SubTexture").size();
 	float iteration = 0;
 
@@ -89,7 +88,6 @@ sf::Image & AssetManager::GetSpriteSheet(std::string name)
 
 float AssetManager::GetStatus()
 {
-	std::cout << "Get Status " << _status << std::endl;
 	return _status;
 }
 

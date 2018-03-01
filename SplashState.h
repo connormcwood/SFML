@@ -15,6 +15,7 @@ public:
 	void HandleInput();
 	void Update(float dt);
 	void Draw(float dt);
+	void UpdateLoadingBar();
 
 private:
 	GameDataRef _data;
@@ -23,6 +24,9 @@ private:
 	sf::Sprite _test;
 
 	sf::Clock _track;
+
+	sf::RectangleShape _loadingBar;
+	sf::RectangleShape _loadingBox;
 };
 
 
