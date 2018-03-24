@@ -12,7 +12,7 @@ public:
 	~MainMenuState();
 
 	void Init();
-	void HandleInput();
+	void HandleInput(float dt);
 	void Update(float dt);
 	void Draw(float dt);
 

@@ -13,7 +13,7 @@ void MainMenuState::Init()
 
 }
 
-void MainMenuState::HandleInput()
+void MainMenuState::HandleInput(float dt)
 {
 }
 

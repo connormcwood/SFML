@@ -18,10 +18,9 @@ void GameState::Init()
 
 // direction 1 - N, 2 - E, 3 - S, 4 - W
 
-void GameState::HandleInput()
+void GameState::HandleInput(float dt)
 {
 	sf::Event event;
-	character->UpdateCharacter();
 	while (this->_data->window.pollEvent(event))
 	{
 
@@ -30,11 +29,17 @@ void GameState::HandleInput()
 			this->_data->window.close();
 		}
 	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+		_data->machine.AddState(StateRef(new GameState(_data)));
+	}
+
+	character->UpdateInput(dt);
 }
 
 void GameState::Update(float dt)
 {
-
+	character->UpdateCharacter(dt);
 }
 
 void GameState::Draw(float dt)

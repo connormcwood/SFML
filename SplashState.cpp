@@ -40,7 +40,7 @@ void SplashState::Init()
 	std::cout << "Completed In Splash" << std::endl;
 }
 
-void SplashState::HandleInput()
+void SplashState::HandleInput(float dt)
 {
 	sf::Event event;
 
@@ -61,6 +61,8 @@ void SplashState::Update(float dt)
 		UpdateLoadingBar();
 		_track.restart();
 	}
+	
+	
 
 	if (this->_data->assets._hasLoadedSpreadSheets == true)
 	{

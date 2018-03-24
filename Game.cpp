@@ -34,7 +34,7 @@ void Game::Run()
 
 		while (accumulator >= dt)
 		{
-			this->_data->machine.GetActiveState()->HandleInput();
+			this->_data->machine.GetActiveState()->HandleInput(dt);
 			this->_data->machine.GetActiveState()->Update(dt);
 
 			accumulator -= dt;
