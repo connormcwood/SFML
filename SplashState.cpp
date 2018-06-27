@@ -62,8 +62,6 @@ void SplashState::Update(float dt)
 		_track.restart();
 	}
 	
-	
-
 	if (this->_data->assets._hasLoadedSpreadSheets == true)
 	{
 		std::cout << "Completed" << std::endl;

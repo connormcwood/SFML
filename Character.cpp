@@ -7,6 +7,11 @@ Character::Character(GameDataRef data) : _data(data)
 	_character.setTexture(this->_data->assets.GetTexture("spaceShips_004.png"));
 	_character.setOrigin(sf::Vector2f(_character.getLocalBounds().width / 2, _character.getLocalBounds().height / 2));
 	_character.setPosition(SCREEN_HEIGHT / 2, SCREEN_HEIGHT / 2);
+
+	for (int i = 0; i < 5; i++) {
+		Missles.push_back(Missle(_data, _character, (i * 20), 500));
+		Missles.push_back(Missle(_data, _character, -(i * 40), 500));
+	}
 }
 
 Character::~Character()
@@ -20,7 +25,7 @@ void Character::UpdateInput(float dt)
 			_playerVelocityX += -PLAYER_ACCELERATION;
 		}
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {		
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
 		if (_playerVelocityX <= PLAYER_MAX_SPEED) {
 			_playerVelocityX += PLAYER_ACCELERATION;
 		}
@@ -28,18 +33,29 @@ void Character::UpdateInput(float dt)
 
 	sf::Time _elapsed = _missleCooldown.getElapsedTime();
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && _elapsed.asSeconds() > PLAYER_MISSLE_COOLDOWN) {
-		Missles.push_back(Missle(_data, _character.getPosition().x - 36, _character.getPosition().y - 58));
-		Missles.push_back(Missle(_data, _character.getPosition().x + 36, _character.getPosition().y - 58));
+		Missles.push_back(Missle(_data, _character, -36, -64));
+		Missles.push_back(Missle(_data, _character, 36, -64));
 		_missleCooldown.restart();
 	}
+
 }
 
 void Character::UpdateCharacter(float dt)
 {
-	for (std::vector<Missle>::reverse_iterator it = Missles.rbegin(); it != Missles.rend(); ++it) {
+	sf::Vector2f direction;
+	for (std::vector<Missle>::iterator it = Missles.begin(); it != Missles.end(); ++it) {
 		it->Update(dt);
+		if (GetCollision().CheckCollision(it->GetCollision(), direction, 0.0f)) {
+				std::cout << "Deleting - " << (it - Missles.begin()) << std::endl;
+				it = Missles.erase(it);
+				if (it != Missles.begin()) {
+					it = std::prev(it);
+					continue;
+				}			
+		}
 	}
-	//std::cout << _character.getPosition().x << " " << _character.getPosition().y << " " << _playerVelocityX << std::endl;
+
+
 	_character.move(sf::Vector2f(_playerVelocityX, 0));
 
 	_playerPosX = _character.getPosition().x;
@@ -47,32 +63,10 @@ void Character::UpdateCharacter(float dt)
 
 	if (_playerVelocityX > 0.001) {
 		_playerVelocityX -= PLAYER_ACCELERATION / 10;
-	}
+	} 
 	else if (_playerVelocityX < -0.001) {
 		_playerVelocityX += PLAYER_ACCELERATION / 10;
 	}
-
-
-	/*
-	_velocity += _acceleration - (PLAYER_MOVEMENT_FRICTION * _velocity * _velocity);
-	
-	sf::Time _elapsed = _track.getElapsedTime();
-	if (_elapsed.asSeconds() > 0.25)
-	{
-		if (_acceleration > 0.001) {
-			_acceleration -= PLAYER_ACCELERATION;
-		}
-		else if (_acceleration < -0.001) {
-			_acceleration += PLAYER_ACCELERATION;
-		}
-
-		if (_acceleration == 0.001 || _acceleration == -0.001) {
-			_acceleration = 0;
-		}
-		_track.restart();
-	}
-	std::cout << _acceleration << " " << _velocity << " " << _character.getPosition().x << " " << std::endl;
-	*/
 }
 
 void Character::DrawCharacter()

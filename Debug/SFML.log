@@ -1,7 +1,4 @@
 ﻿  Character.cpp
-  Generating Code...
-  Skipping... (no relevant changes detected)
-  SplashState.cpp
-  Missle.cpp
-  GameState.cpp
+c:\repos\sfml\sfml\character.cpp(12): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\repos\sfml\sfml\character.cpp(13): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   SFML.vcxproj -> C:\repos\SFML\Debug\SFML.exe

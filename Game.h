@@ -10,6 +10,7 @@ struct GameData
 {
 	StateMachine machine;
 	sf::RenderWindow window;
+	sf::View view;
 	AssetManager assets;
 	InputManager input;
 };

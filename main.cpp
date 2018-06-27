@@ -4,8 +4,6 @@
 #include "Game.h"
 
 #include <iostream>
-#include "Player.h"
-#include "Platform.h"
 
 static const float VIEW_HEIGHT = 512.0f;
 static const float VIEW_WIDTH = 512.0f;

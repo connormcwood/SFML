@@ -4,15 +4,16 @@
 class Collision
 {
 public:
-	Collision(sf::RectangleShape& body);
+	Collision(sf::Sprite& _sprite);
 	~Collision();
 
-	void Move(float dx, float dy) { body.move(dx, dy); }
+	void Move(float dx, float dy) { _sprite.setPosition(dx, dy); }
 	bool CheckCollision(Collision other, sf::Vector2f& direction, float push);
-	sf::Vector2f GetPosition() { return body.getPosition();  }
-	sf::Vector2f GetHalfSize() { return body.getSize() / 2.0f; }
+	sf::Vector2f GetPosition() { return _sprite.getPosition();  }
+	sf::Vector2f GetHalfSize() { return _sprite.getPosition() / 2.0f; }
+	sf::Sprite& GetSprite() { return _sprite;  }
 
 private:
-	sf::RectangleShape& body;
+	sf::Sprite& _sprite;
 };
 

@@ -2,6 +2,7 @@
 #include "SFML\Graphics.hpp"
 #include "Game.h"
 #include "Missle.h"
+#include "Collision.h"
 
 class Character
 {
@@ -19,6 +20,8 @@ private:
 	sf::Clock _track;
 	sf::Clock _missleCooldown;
 	std::vector<Missle> Missles;
+	Collision GetCollision() { return Collision(_character); }
+
 
 	float _direction = 0;
 	bool _hasInput = false;
