@@ -8,8 +8,8 @@
 
 #define JEDI_FONT_PATH "res/fonts/starjedi/Star_Jedi_Rounded.ttf"
 
-#define MAIN_STYLESHEET_IMAGE "res/img/spaceShooter2_spritesheet.png" 
-#define MAIN_STYLESHEET_XML "res/img/spaceShooter2_spritesheet.xml"
+#define MAIN_STYLESHEET_IMAGE "res/img/spritesheet.png" 
+#define MAIN_STYLESHEET_XML "res/img/spritesheet.xml"
 
 #define PLAYER_MAX_SPEED 7.5f
 #define PLAYER_ACCELERATION 0.5f

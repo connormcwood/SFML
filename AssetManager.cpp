@@ -51,12 +51,12 @@ int AssetManager::LoadSpriteSheet(std::string name, std::string fileName, const 
 		std::cout << "Couldnt Load" << std::endl;
 	}
 
-	pugi::xml_node textures = doc.child("TextureAtlas");
+	pugi::xml_node textures = doc.child("textureatlas");
 
-	float total = textures.select_nodes("SubTexture").size();
+	float total = textures.select_nodes("subtexture").size();
 	float iteration = 0;
 
-	for (pugi::xml_node texture = textures.child("SubTexture"); texture; texture = texture.next_sibling("SubTexture"))
+	for (pugi::xml_node texture = textures.child("subtexture"); texture; texture = texture.next_sibling("subtexture"))
 	{
 		sf::Texture tex;
 		std::string x = texture.attribute("x").value();

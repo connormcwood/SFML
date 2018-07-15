@@ -4,14 +4,16 @@
 Character::Character(GameDataRef data) : _data(data)
 {
 
-	_character.setTexture(this->_data->assets.GetTexture("spaceShips_004.png"));
+	_character.setTexture(this->_data->assets.GetTexture("Ship"));
 	_character.setOrigin(sf::Vector2f(_character.getLocalBounds().width / 2, _character.getLocalBounds().height / 2));
-	_character.setPosition(SCREEN_HEIGHT / 2, SCREEN_HEIGHT / 2);
+	_character.setPosition(SCREEN_HEIGHT / 2, SCREEN_HEIGHT - 100);
 
-	for (int i = 0; i < 5; i++) {
+	
+
+	/*for (int i = 0; i < 5; i++) {
 		Missles.push_back(Missle(_data, _character, (i * 20), 500));
 		Missles.push_back(Missle(_data, _character, -(i * 40), 500));
-	}
+	}*/
 }
 
 Character::~Character()
@@ -31,30 +33,34 @@ void Character::UpdateInput(float dt)
 		}
 	}
 
+	
+
 	sf::Time _elapsed = _missleCooldown.getElapsedTime();
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && _elapsed.asSeconds() > PLAYER_MISSLE_COOLDOWN) {
-		Missles.push_back(Missle(_data, _character, -36, -64));
-		Missles.push_back(Missle(_data, _character, 36, -64));
-		_missleCooldown.restart();
+		this->_data->manager.AddSprite(new Missle(_data, _character.getPosition().x + 20, _character.getPosition().y - 25));
+		this->_data->manager.AddSprite(new Missle(_data, _character.getPosition().x - 20, _character.getPosition().y - 25));
+		_missleCooldown.restart();		
 	}
 
 }
 
-void Character::UpdateCharacter(float dt)
+void Character::Update(float dt)
 {
 	sf::Vector2f direction;
-	for (std::vector<Missle>::iterator it = Missles.begin(); it != Missles.end(); ++it) {
-		it->Update(dt);
-		if (GetCollision().CheckCollision(it->GetCollision(), direction, 0.0f)) {
-				std::cout << "Deleting - " << (it - Missles.begin()) << std::endl;
+	
+	//Ensure Missles Exist
+	if(Missles.begin() != Missles.end()){
+		for (std::vector<Missle>::iterator it = Missles.begin(); it != Missles.end(); ++it) {
+			it->Update(dt);
+			if (GetCollision().CheckCollision(it->GetCollision(), direction, 0.0f) && it->GetLifespan() > 800) {
 				it = Missles.erase(it);
 				if (it != Missles.begin()) {
 					it = std::prev(it);
 					continue;
-				}			
+				}
+			}
 		}
 	}
-
 
 	_character.move(sf::Vector2f(_playerVelocityX, 0));
 
@@ -69,10 +75,7 @@ void Character::UpdateCharacter(float dt)
 	}
 }
 
-void Character::DrawCharacter()
+void Character::Draw()
 {
-	for (std::vector<Missle>::reverse_iterator it = Missles.rbegin(); it != Missles.rend(); ++it) {
-		it->Draw();
-	}
 	this->_data->window.draw(_character);
 }

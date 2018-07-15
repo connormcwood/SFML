@@ -1,17 +1,19 @@
 #pragma once
-#include "SFML\Graphics.hpp"
+#include <SFML/Graphics.hpp>
+#include "SpriteObject.h"
 #include "Game.h"
 #include "Missle.h"
 #include "Collision.h"
 
-class Character
+
+class Character : public SpriteObject
 {
 public:
 	Character(GameDataRef data);
 	~Character();
 
-	void UpdateCharacter(float dt);
-	void DrawCharacter();
+	void Update(float dt);
+	void Draw();
 	void UpdateInput(float dt);
 
 private:

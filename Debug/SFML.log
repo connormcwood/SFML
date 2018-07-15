@@ -1,4 +1,2 @@
-﻿  Character.cpp
-c:\repos\sfml\sfml\character.cpp(12): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\repos\sfml\sfml\character.cpp(13): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+﻿  Invader.cpp
   SFML.vcxproj -> C:\repos\SFML\Debug\SFML.exe

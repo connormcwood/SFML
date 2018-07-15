@@ -2,11 +2,11 @@
 
 
 
-Missle::Missle(GameDataRef data, sf::Sprite _parent, float offsetX, float offsetY) : _data(data)
+Missle::Missle(GameDataRef data, float startX, float startY) : _data(data)
 {
-	_missle.setTexture(this->_data->assets.GetTexture("spaceMissiles_003.png"));
+	_missle.setTexture(this->_data->assets.GetTexture("Bullet"));
 	_missle.setOrigin(sf::Vector2f(_missle.getLocalBounds().width / 2, _missle.getLocalBounds().height / 2));
-	_missle.setPosition(_parent.getPosition().x + offsetX, _parent.getPosition().y + offsetY);
+	_missle.setPosition(startX, startY);	
 }
 
 
@@ -18,7 +18,7 @@ void Missle::Update(float dt)
 {
 	float _velocityX = -1 * (_acceleration * _acceleration);
 	_missle.move(0, _velocityX);
-	sf::Time _elapsed = _track.getElapsedTime();
+	sf::Time _elapsed = _track.getElapsedTime(); 
 	if (_elapsed.asSeconds() > 0.25) {
 		_acceleration += 0.05;
 	}
@@ -29,9 +29,8 @@ void Missle::Draw()
 	this->_data->window.draw(_missle);
 }
 
-void Missle::DeleteMissle()
+void Missle::UpdateInput(float dt)
 {
-	delete this;
 }
 
 void Missle::SetToBeDeleted(bool value)

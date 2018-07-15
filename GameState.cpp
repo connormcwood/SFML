@@ -1,7 +1,7 @@
 #include "GameState.h"
 #include "Definitions.h"
 #include "Character.h"
-
+#include "Invader.h"
 
 GameState::GameState(GameDataRef data) : _data(data)
 {
@@ -14,10 +14,14 @@ GameState::~GameState()
 
 void GameState::Init()
 {
-	character = new Character(_data);
-}
+	this->_data->manager.AddSprite(new Character(_data));
 
-// direction 1 - N, 2 - E, 3 - S, 4 - W
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 9; j++) {
+			this->_data->manager.AddSprite(new Invader(_data, (j * 55) + 155, (i * 50) + 100));
+		}
+	}
+}
 
 void GameState::HandleInput(float dt)
 {
@@ -35,17 +39,17 @@ void GameState::HandleInput(float dt)
 		_data->machine.AddState(StateRef(new GameState(_data)));
 	}
 
-	character->UpdateInput(dt);
+	this->_data->manager.UpdateInput(dt);
 }
 
 void GameState::Update(float dt)
 {
-	character->UpdateCharacter(dt);
+	this->_data->manager.Update(dt);
 }
 
 void GameState::Draw(float dt)
 {
 	this->_data->window.clear(sf::Color::Black);
-	character->DrawCharacter();
+	this->_data->manager.Draw();
 	this->_data->window.display();
 }

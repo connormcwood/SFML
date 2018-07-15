@@ -1,10 +1,12 @@
 #pragma once
+
 #include <memory>
 #include <string>
 #include <SFML\Graphics.hpp>
 #include "StateMachine.h"
 #include "AssetManager.h"
 #include "InputManager.h"
+#include "GameManager.h"
 
 struct GameData
 {
@@ -13,6 +15,7 @@ struct GameData
 	sf::View view;
 	AssetManager assets;
 	InputManager input;
+	GameManager manager;
 };
 
 
