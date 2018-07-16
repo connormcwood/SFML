@@ -53,9 +53,19 @@ void GameManager::Update(float dt)
 	}
 	
 	std::vector<SpriteObject*>::iterator garbageCollectionItr;
+	std::vector<SpriteObject*>::iterator spriteRealItr;
 	for (garbageCollectionItr = garbageCollection.begin(); garbageCollectionItr != garbageCollection.end(); garbageCollectionItr++) {
 		SpriteObject* spritePtr = *garbageCollectionItr;
-		sprites.erase(std::remove(sprites.begin(), sprites.end(), spritePtr), sprites.end());
+		for (spriteRealItr = sprites.begin(); spriteRealItr != sprites.end();) {
+			SpriteObject* spriteRealPtr = *spriteRealItr;
+			if (*garbageCollectionItr == *spriteRealItr) {
+				spriteRealItr = sprites.erase(spriteRealItr);
+			}
+			else {
+				++spriteRealItr;
+			}
+		}
+		//sprites.erase(std::remove(sprites.begin(), sprites.end(), spritePtr), sprites.end());
 	}
 
 
