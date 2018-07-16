@@ -7,12 +7,15 @@ class GameManager
 public:
 	GameManager();
 	~GameManager();
-	bool AddSprite(SpriteObject* sprite);
+	void AddSprite(SpriteObject* sprite);
+	void AddSpriteToGarbage(SpriteObject* spritePtr);
+
 	void Update(float dt);
 	void Draw();
 	void UpdateInput(float dt);
 
 private:
 	std::vector<SpriteObject*> sprites;
+	std::vector<SpriteObject*> garbageCollection;
 };
 

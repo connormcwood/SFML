@@ -18,7 +18,7 @@ void GameState::Init()
 
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j < 9; j++) {
-			this->_data->manager.AddSprite(new Invader(_data, (j * 55) + 155, (i * 50) + 100));
+			this->_data->manager.AddSprite(new Invader(_data, (j * 55.0f) + 155.0f, (i * 50.0f) + 100.0f));
 		}
 	}
 }

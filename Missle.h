@@ -31,6 +31,6 @@ private:
 
 	bool toBeDeleted = false;
 
-	float _acceleration = 0.1f;
+	float _acceleration = 1.0f;
 };
 

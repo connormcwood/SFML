@@ -14,7 +14,7 @@ public:
 	void Update(float dt);
 	void UpdateInput(float dt);
 	void Draw();
-
+	Collision GetCollision() { return Collision(_invader); }
 private:
 	GameDataRef _data;
 	sf::Sprite _invader;
@@ -22,6 +22,6 @@ private:
 	sf::Clock _missleCooldown;
 	int _direction = 1; // E = 1 W = 0
 	std::vector<Missle> Missles;
-	Collision GetCollision() { return Collision(_invader); }
+
 };
 

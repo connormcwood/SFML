@@ -37,8 +37,7 @@ void Character::UpdateInput(float dt)
 
 	sf::Time _elapsed = _missleCooldown.getElapsedTime();
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && _elapsed.asSeconds() > PLAYER_MISSLE_COOLDOWN) {
-		this->_data->manager.AddSprite(new Missle(_data, _character.getPosition().x + 20, _character.getPosition().y - 25));
-		this->_data->manager.AddSprite(new Missle(_data, _character.getPosition().x - 20, _character.getPosition().y - 25));
+		this->_data->manager.AddSprite(new Missle(_data, _character.getPosition().x, _character.getPosition().y - 25));
 		_missleCooldown.restart();		
 	}
 
