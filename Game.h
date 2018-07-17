@@ -29,6 +29,7 @@ public:
 private: 
 	const float dt = 1.0f / 60.0f;
 	sf::Clock _clock;
+	float _fps;
 
 	GameDataRef _data = std::make_shared<GameData>();
 

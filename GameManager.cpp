@@ -1,6 +1,6 @@
 #include "GameManager.h"
 #include <iostream>
-
+#include "Definitions.h"
 
 GameManager::GameManager()
 {
@@ -36,18 +36,16 @@ void GameManager::Update(float dt)
 		iteration++;
 		SpriteObject* object = *spritesItr;
 		object->Update(dt);
-		//std::cout << iteration << std::endl;
+		if (object->GetSprite().getPosition().x < 0 || object->GetSprite().getPosition().y < 0 
+			|| object->GetSprite().getPosition().x > SCREEN_WIDTH || object->GetSprite().getPosition().y > SCREEN_HEIGHT) {
+			AddSpriteToGarbage(*spritesItr);
+			continue;
+		}
 		for (spritesItrTwo = spritesCopyTwo.begin(); spritesItrTwo != spritesCopyTwo.end(); spritesItrTwo++) {
 			SpriteObject* secObject = *spritesItrTwo;
 			if (*spritesItr != *spritesItrTwo && object->GetCollision().CheckCollision(secObject->GetCollision(), direction, 1.0f)) {
 				AddSpriteToGarbage(*spritesItr);
 				AddSpriteToGarbage(*spritesItrTwo);
-				
-				/*spritesItrTwo = spritesCopyTwo.erase(spritesItrTwo);
-				if (spritesItrTwo != spritesCopyTwo.begin()) {
-					spritesItrTwo = std::prev(spritesItrTwo);
-					continue;
-				}*/
 			}
 		}
 	}
@@ -57,7 +55,6 @@ void GameManager::Update(float dt)
 	for (garbageCollectionItr = garbageCollection.begin(); garbageCollectionItr != garbageCollection.end(); garbageCollectionItr++) {
 		SpriteObject* spritePtr = *garbageCollectionItr;
 		for (spriteRealItr = sprites.begin(); spriteRealItr != sprites.end();) {
-			SpriteObject* spriteRealPtr = *spriteRealItr;
 			if (*garbageCollectionItr == *spriteRealItr) {
 				spriteRealItr = sprites.erase(spriteRealItr);
 			}
@@ -65,7 +62,6 @@ void GameManager::Update(float dt)
 				++spriteRealItr;
 			}
 		}
-		//sprites.erase(std::remove(sprites.begin(), sprites.end(), spritePtr), sprites.end());
 	}
 
 
@@ -91,4 +87,28 @@ void GameManager::UpdateInput(float dt)
 		SpriteObject* object = *spritesItr;
 		object->UpdateInput(dt);
 	}
+}
+
+void GameManager::SetFPS(float fps)
+{
+	_fps = fps;
+}
+
+float GameManager::GetFPS()
+{
+	return _fps;
+}
+
+bool GameManager::CheckDirectionClear(SpriteObject* sprite, int direction, bool strictObject)
+{
+	std::vector<SpriteObject*>::iterator spritesItr;
+	for (spritesItr = sprites.begin(); spritesItr != sprites.end(); spritesItr++) {
+		SpriteObject* object = *spritesItr;
+		if (sprite != object) {
+			if (sprite->GetCollision().CheckIfDirectionFree(object->GetCollision(), 3) == true) {
+				return true;
+			} 
+		}
+	}
+	return false;
 }

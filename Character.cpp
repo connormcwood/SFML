@@ -31,13 +31,11 @@ void Character::UpdateInput(float dt)
 		if (_playerVelocityX <= PLAYER_MAX_SPEED) {
 			_playerVelocityX += PLAYER_ACCELERATION;
 		}
-	}
-
-	
+	}	
 
 	sf::Time _elapsed = _missleCooldown.getElapsedTime();
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && _elapsed.asSeconds() > PLAYER_MISSLE_COOLDOWN) {
-		this->_data->manager.AddSprite(new Missle(_data, _character.getPosition().x, _character.getPosition().y - 25));
+		this->_data->manager.AddSprite(new Missle(_data, _character.getPosition().x, _character.getPosition().y - 25, true));
 		_missleCooldown.restart();		
 	}
 
@@ -45,22 +43,6 @@ void Character::UpdateInput(float dt)
 
 void Character::Update(float dt)
 {
-	sf::Vector2f direction;
-	
-	//Ensure Missles Exist
-	if(Missles.begin() != Missles.end()){
-		for (std::vector<Missle>::iterator it = Missles.begin(); it != Missles.end(); ++it) {
-			it->Update(dt);
-			if (GetCollision().CheckCollision(it->GetCollision(), direction, 0.0f) && it->GetLifespan() > 800) {
-				it = Missles.erase(it);
-				if (it != Missles.begin()) {
-					it = std::prev(it);
-					continue;
-				}
-			}
-		}
-	}
-
 	_character.move(sf::Vector2f(_playerVelocityX, 0));
 
 	_playerPosX = _character.getPosition().x;

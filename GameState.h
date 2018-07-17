@@ -21,7 +21,7 @@ private:
 	float _charSpeed;
 	int _direction;
 	int _prevDirection;
-
+	sf::Text text;
 
 	Character *character;
 };

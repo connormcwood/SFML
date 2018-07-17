@@ -15,6 +15,8 @@ public:
 	void UpdateInput(float dt);
 	void Draw();
 	Collision GetCollision() { return Collision(_invader); }
+	sf::Sprite& GetSprite() { return _invader; }
+
 private:
 	GameDataRef _data;
 	sf::Sprite _invader;

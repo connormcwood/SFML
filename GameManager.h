@@ -13,9 +13,15 @@ public:
 	void Update(float dt);
 	void Draw();
 	void UpdateInput(float dt);
+	
+	void SetFPS(float fps);
+	float GetFPS();
+
+	bool CheckDirectionClear(SpriteObject* sprite, int direction, bool strictObject);
 
 private:
 	std::vector<SpriteObject*> sprites;
 	std::vector<SpriteObject*> garbageCollection;
+	float _fps = 0;
 };
 

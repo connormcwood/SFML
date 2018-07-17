@@ -8,20 +8,21 @@
 class Missle : public SpriteObject
 {
 public:
-	Missle(GameDataRef data, float startX, float startY);
+	Missle(GameDataRef data, float startX, float startY, bool isVertical);
 	~Missle();
 
 	void Update(float dt);
 	void Draw();
 	void UpdateInput(float dt);
 
-	void SetToBeDeleted(bool value);
-	bool GetToBeDeleted();
 	Collision GetCollision() { return Collision(_missle); }
 	sf::Int32 GetLifespan() {
 		_lifespan = _track.getElapsedTime();
 		return _lifespan.asMilliseconds();
 	}
+	sf::Sprite& GetSprite() { return _missle;  }
+
+	bool isVertical;
 
 private:
 	GameDataRef _data;

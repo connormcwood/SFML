@@ -23,6 +23,7 @@ void Game::Run()
 
 		newTime = this->_clock.getElapsedTime().asSeconds();
 		frameTime = newTime - currentTime;
+		this->_data->manager.SetFPS(1.0f / frameTime);
 
 		if (frameTime > 0.25f)
 		{

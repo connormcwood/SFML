@@ -10,6 +10,7 @@ public:
 	virtual void Update(float dt) = 0;
 	virtual void Draw() = 0;
 	virtual void UpdateInput(float dt) = 0;
+	virtual sf::Sprite& GetSprite() = 0;
 	virtual Collision GetCollision() = 0;
 };
 

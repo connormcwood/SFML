@@ -15,13 +15,13 @@ public:
 	void Update(float dt);
 	void Draw();
 	void UpdateInput(float dt);
+	sf::Sprite& GetSprite() { return _character; }
 
 private:
 	GameDataRef _data;
 	sf::Sprite _character;
 	sf::Clock _track;
 	sf::Clock _missleCooldown;
-	std::vector<Missle> Missles;
 	Collision GetCollision() { return Collision(_character); }
 
 

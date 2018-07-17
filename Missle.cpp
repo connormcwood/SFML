@@ -2,7 +2,7 @@
 
 
 
-Missle::Missle(GameDataRef data, float startX, float startY) : _data(data)
+Missle::Missle(GameDataRef data, float startX, float startY, bool isVertical) : _data(data), isVertical(isVertical)
 {
 	_missle.setTexture(this->_data->assets.GetTexture("Bullet"));
 	_missle.setOrigin(sf::Vector2f(_missle.getLocalBounds().width / 2, _missle.getLocalBounds().height / 2));
@@ -16,7 +16,14 @@ Missle::~Missle()
 
 void Missle::Update(float dt)
 {
-	float _velocityX = -1 * (_acceleration * _acceleration);
+	float _velocityX;
+	if (isVertical == true) {
+		_velocityX = -1 * (_acceleration * _acceleration);
+	}
+	else {
+		_velocityX = 1 * (_acceleration * _acceleration);
+	}
+	
 	_missle.move(0, _velocityX);
 	sf::Time _elapsed = _track.getElapsedTime(); 
 	if (_elapsed.asSeconds() > 0.25) {
@@ -31,14 +38,4 @@ void Missle::Draw()
 
 void Missle::UpdateInput(float dt)
 {
-}
-
-void Missle::SetToBeDeleted(bool value)
-{
-	toBeDeleted = value;
-}
-
-bool Missle::GetToBeDeleted()
-{
-	return this->toBeDeleted;
 }
