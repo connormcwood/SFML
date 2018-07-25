@@ -1,6 +1,7 @@
 #include "GameManager.h"
 #include <iostream>
 #include "Definitions.h"
+#include "Invader.h"
 
 GameManager::GameManager()
 {
@@ -34,16 +35,14 @@ void GameManager::Update(float dt)
 	int iteration = 0;
 	for (spritesItr = spritesCopy.begin(); spritesItr != spritesCopy.end(); spritesItr++) {
 		iteration++;
-		SpriteObject* object = *spritesItr;
-		object->Update(dt);
-		if (object->GetSprite().getPosition().x < 0 || object->GetSprite().getPosition().y < 0 
-			|| object->GetSprite().getPosition().x > SCREEN_WIDTH || object->GetSprite().getPosition().y > SCREEN_HEIGHT) {
+		(*spritesItr)->Update(dt);
+		if ((*spritesItr)->GetSprite().getPosition().x < 0 || (*spritesItr)->GetSprite().getPosition().y < 0
+			|| (*spritesItr)->GetSprite().getPosition().x > SCREEN_WIDTH || (*spritesItr)->GetSprite().getPosition().y > SCREEN_HEIGHT - 100) {
 			AddSpriteToGarbage(*spritesItr);
 			continue;
 		}
 		for (spritesItrTwo = spritesCopyTwo.begin(); spritesItrTwo != spritesCopyTwo.end(); spritesItrTwo++) {
-			SpriteObject* secObject = *spritesItrTwo;
-			if (*spritesItr != *spritesItrTwo && object->GetCollision().CheckCollision(secObject->GetCollision(), direction, 1.0f)) {
+			if ((*spritesItr) != (*spritesItrTwo) && (*spritesItr)->GetCollision().CheckCollision((*spritesItrTwo)->GetCollision(), direction, 1.0f)) {
 				AddSpriteToGarbage(*spritesItr);
 				AddSpriteToGarbage(*spritesItrTwo);
 			}
@@ -53,18 +52,19 @@ void GameManager::Update(float dt)
 	std::vector<SpriteObject*>::iterator garbageCollectionItr;
 	std::vector<SpriteObject*>::iterator spriteRealItr;
 	for (garbageCollectionItr = garbageCollection.begin(); garbageCollectionItr != garbageCollection.end(); garbageCollectionItr++) {
-		SpriteObject* spritePtr = *garbageCollectionItr;
-		for (spriteRealItr = sprites.begin(); spriteRealItr != sprites.end();) {
+		for (spriteRealItr = sprites.begin(); spriteRealItr != sprites.end();) {	
 			if (*garbageCollectionItr == *spriteRealItr) {
-				spriteRealItr = sprites.erase(spriteRealItr);
+				(*spriteRealItr)->Delete();
+				delete (*spriteRealItr);
+				//delete * spriteRealItr;				
+				spriteRealItr = sprites.erase(spriteRealItr);				
 			}
 			else {
 				++spriteRealItr;
 			}
 		}
 	}
-
-
+	garbageCollection.clear();
 }
 
 void GameManager::Draw()
@@ -72,6 +72,8 @@ void GameManager::Draw()
 	std::vector<SpriteObject*> spritesCopy = sprites; //Copy The Vector As The Vector Memory May Change When New Sprites Are Added
 	std::vector<SpriteObject*>::iterator spritesItr;
 
+	SetScore(GetScore() - (GetScore() + 1 / 10));
+	
 	for (spritesItr = spritesCopy.begin(); spritesItr != spritesCopy.end(); spritesItr++) {
 		SpriteObject* object = *spritesItr;
 		object->Draw();
@@ -84,9 +86,19 @@ void GameManager::UpdateInput(float dt)
 	std::vector<SpriteObject*>::iterator spritesItr;
 
 	for (spritesItr = spritesCopy.begin(); spritesItr != spritesCopy.end(); spritesItr++) {
-		SpriteObject* object = *spritesItr;
-		object->UpdateInput(dt);
+		(*spritesItr)->UpdateInput(dt);
 	}
+}
+
+bool GameManager::Clear()
+{
+	garbageCollection.clear();
+	std::vector<SpriteObject*>::iterator spritesItr;
+	for (spritesItr = sprites.begin(); spritesItr != sprites.end();) {
+		delete * spritesItr;
+		spritesItr = sprites.erase(spritesItr);
+	}
+	return true;
 }
 
 void GameManager::SetFPS(float fps)
@@ -99,16 +111,49 @@ float GameManager::GetFPS()
 	return _fps;
 }
 
-bool GameManager::CheckDirectionClear(SpriteObject* sprite, int direction, bool strictObject)
+void GameManager::CheckDirectionClear(int direction, bool strictObject)
 {
 	std::vector<SpriteObject*>::iterator spritesItr;
-	for (spritesItr = sprites.begin(); spritesItr != sprites.end(); spritesItr++) {
-		SpriteObject* object = *spritesItr;
-		if (sprite != object) {
-			if (sprite->GetCollision().CheckIfDirectionFree(object->GetCollision(), 3) == true) {
-				return true;
-			} 
+	std::vector<SpriteObject*> spritesCopy = sprites;
+
+	bool found = false;
+
+	for (std::vector<SpriteObject*>::reverse_iterator spriteItr = spritesCopy.rbegin();
+		spriteItr != spritesCopy.rend(); ++spriteItr) {
+		for (std::vector<SpriteObject*>::reverse_iterator spriteItrCopy = spritesCopy.rbegin();
+			spriteItrCopy != spritesCopy.rend(); ++spriteItrCopy) {		
+			if (spriteItrCopy != spriteItr) {
+				if ((*spriteItr)->GetCollision().CheckIfDirectionFree((*spriteItrCopy)->GetCollision(), 3) == true) {
+					found = true;
+				}
+			}
+		}
+
+		if (found == true) {
+			(*spriteItr)->SetCanFire(false);
+		}
+		else if (found == false) {
+			(*spriteItr)->SetCanFire(true);
 		}
 	}
-	return false;
+}
+
+int GameManager::GetScore()
+{
+	return _score;
+}
+
+void GameManager::SetScore(int value)
+{
+	_score = value;
+}
+
+int GameManager::GetHealth()
+{
+	return _health;
+}
+
+void GameManager::SetHealth(int value)
+{
+	_health = value;
 }

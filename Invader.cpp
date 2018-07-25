@@ -1,10 +1,12 @@
 #include "Invader.h"
 #include <time.h> 
-
+#include "DeathObserver.h"
 
 Invader::Invader(GameDataRef data, float startX, float startY) : _data(data)
 {
-	_invader.setTexture(this->_data->assets.GetTexture("InvaderA2"));
+	DeathObserver* dObsPtr = new DeathObserver(this, data);
+	std::cout << "Invader: " << this << std::endl;
+ 	_invader.setTexture(this->_data->assets.GetTexture("InvaderA2"));
 	_invader.setOrigin(sf::Vector2f(_invader.getLocalBounds().width / 2, _invader.getLocalBounds().height / 2));
 	_invader.setPosition(startX, startY);
 	srand(time(NULL));
@@ -32,10 +34,8 @@ void Invader::Update(float dt)
 	}
 
 	sf::Time _elapsed = _track.getElapsedTime();
-	if (_elapsed.asSeconds() > 1 && (rand() % 10 + 1) == 3) {
-		if (this->_data->manager.CheckDirectionClear(this, 3, false) == false) {
-			this->_data->manager.AddSprite(new Missle(_data, _invader.getPosition().x, _invader.getPosition().y + 25, false));
-		}
+	if (_elapsed.asSeconds() > 1 && GetCanFire() == true) {
+		this->_data->manager.AddSprite(new Missle(_data, _invader.getPosition().x, _invader.getPosition().y + 25, false));
 		_track.restart();
 	}
 }
@@ -47,4 +47,10 @@ void Invader::UpdateInput(float dt)
 void Invader::Draw()
 {
 	this->_data->window.draw(_invader);
+}
+
+void Invader::Delete()
+{
+	this->_data->manager.SetScore(this->_data->manager.GetScore() + 1);
+	SetAlive(false);
 }

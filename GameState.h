@@ -21,7 +21,11 @@ private:
 	float _charSpeed;
 	int _direction;
 	int _prevDirection;
-	sf::Text text;
+	
+	sf::Text fpsText;
+	sf::Text scoreText;
+	sf::Text healthText;
+	sf::Font * font;
 
 	Character *character;
 };

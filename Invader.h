@@ -14,6 +14,8 @@ public:
 	void Update(float dt);
 	void UpdateInput(float dt);
 	void Draw();
+	void Delete();
+
 	Collision GetCollision() { return Collision(_invader); }
 	sf::Sprite& GetSprite() { return _invader; }
 

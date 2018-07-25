@@ -12,6 +12,7 @@ Missle::Missle(GameDataRef data, float startX, float startY, bool isVertical) : 
 
 Missle::~Missle()
 {
+
 }
 
 void Missle::Update(float dt)
@@ -38,4 +39,9 @@ void Missle::Draw()
 
 void Missle::UpdateInput(float dt)
 {
+}
+
+void Missle::Delete()
+{
+	SetAlive(false);
 }

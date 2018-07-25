@@ -15,6 +15,8 @@ public:
 	void Update(float dt);
 	void Draw();
 	void UpdateInput(float dt);
+	void Delete();
+
 	sf::Sprite& GetSprite() { return _character; }
 
 private:
@@ -36,5 +38,7 @@ private:
 
 	float _playerVelocityX = 0;
 	float _playerVelocityY = 0;
+
+
 };
 

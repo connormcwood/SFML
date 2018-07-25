@@ -14,15 +14,38 @@ GameState::~GameState()
 }
 
 void GameState::Init()
-{
-	this->_data->manager.AddSprite(new Character(_data));
+{;
+	font = new sf::Font();
+	if (!(*font).loadFromFile("opensans.ttf")) {
+		std::cout << "Couldnt Load Font" << std::endl;
+	}
 
+	fpsText = sf::Text();
+	fpsText.setFont(*font);
+	fpsText.setCharacterSize(12);
+	fpsText.setFillColor(sf::Color::White);
+	fpsText.setPosition(10, 10);
+
+	scoreText = sf::Text();
+	scoreText.setFont(*font);
+	scoreText.setCharacterSize(14);
+	scoreText.setFillColor(sf::Color::White);
+	scoreText.setPosition(SCREEN_WIDTH - 100, SCREEN_HEIGHT - 100);
+
+	healthText = sf::Text();
+	healthText.setFont(*font);
+	healthText.setCharacterSize(14);
+	healthText.setFillColor(sf::Color::Red);
+	healthText.setPosition(SCREEN_WIDTH - 100, SCREEN_HEIGHT - 80);
 
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j < 9; j++) {
 			this->_data->manager.AddSprite(new Invader(_data, (j * 55.0f) + 155.0f, (i * 50.0f) + 100.0f));
 		}
 	}
+	this->_data->manager.AddSprite(new Character(_data));
+
+	this->_data->manager.CheckDirectionClear(3, false);
 	//this->_data->manager.AddSprite(new Invader(_data, (1 * 55.0f) + 155.0f, (1 * 50.0f) + 100.0f));
 }
 
@@ -39,7 +62,8 @@ void GameState::HandleInput(float dt)
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-		_data->machine.AddState(StateRef(new GameState(_data)));
+		this->_data->manager.Clear();
+		this->_data->machine.AddState(StateRef(new GameState(_data)));
 	}
 
 	this->_data->manager.UpdateInput(dt);
@@ -47,27 +71,20 @@ void GameState::HandleInput(float dt)
 
 void GameState::Update(float dt)
 {
-	
+
+	fpsText.setString(std::to_string(this->_data->manager.GetFPS()));
+	scoreText.setString("score: " + std::to_string(this->_data->manager.GetScore()));
+	healthText.setString("health: " + std::to_string(this->_data->manager.GetHealth()));
 	this->_data->manager.Update(dt);
 }
 
 void GameState::Draw(float dt)
 {
-	sf::Text text;
-	sf::Font font;
-	if (!font.loadFromFile("opensans.ttf")) {
-		std::cout << "Couldnt Load Font" << std::endl;
-	}
-	text = sf::Text();
-	text.setFont(font);
-	text.setCharacterSize(12);
-	text.setFillColor(sf::Color::White);
-	text.setPosition(10, 10);
-	text.setString(std::to_string(this->_data->manager.GetFPS()));
-
 	this->_data->window.clear(sf::Color::Black);
 	this->_data->manager.Draw();
-	this->_data->window.draw(text);
+	this->_data->window.draw(fpsText);
+	this->_data->window.draw(scoreText);
+	this->_data->window.draw(healthText);
 	this->_data->window.display();
 
 }

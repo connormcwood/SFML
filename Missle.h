@@ -14,6 +14,7 @@ public:
 	void Update(float dt);
 	void Draw();
 	void UpdateInput(float dt);
+	void Delete();
 
 	Collision GetCollision() { return Collision(_missle); }
 	sf::Int32 GetLifespan() {
