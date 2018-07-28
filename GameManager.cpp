@@ -5,11 +5,13 @@
 
 GameManager::GameManager()
 {
+
 }
 
 
 GameManager::~GameManager()
 {
+
 }
 
 void GameManager::AddSprite(SpriteObject* sprite)
@@ -32,6 +34,11 @@ void GameManager::Update(float dt)
 
 	sf::Vector2f direction;
 
+	if (getReachedSide() == true) {
+		setVerticalOffset(15);
+		setReachedSide(false);
+	}
+
 	int iteration = 0;
 	for (spritesItr = spritesCopy.begin(); spritesItr != spritesCopy.end(); spritesItr++) {
 		iteration++;
@@ -48,7 +55,8 @@ void GameManager::Update(float dt)
 			}
 		}
 	}
-	
+	setVerticalOffset(0);
+
 	std::vector<SpriteObject*>::iterator garbageCollectionItr;
 	std::vector<SpriteObject*>::iterator spriteRealItr;
 	for (garbageCollectionItr = garbageCollection.begin(); garbageCollectionItr != garbageCollection.end(); garbageCollectionItr++) {
@@ -138,6 +146,16 @@ void GameManager::CheckDirectionClear(int direction, bool strictObject)
 	}
 }
 
+void GameManager::setVerticalOffset(int value)
+{
+	_verticalOffset = value;
+}
+
+int GameManager::getVerticalOffset()
+{
+	return _verticalOffset;
+}
+
 int GameManager::GetScore()
 {
 	return _score;
@@ -157,3 +175,15 @@ void GameManager::SetHealth(int value)
 {
 	_health = value;
 }
+
+bool GameManager::getReachedSide()
+{
+	return _hasReachedSize;
+}
+
+void GameManager::setReachedSide(bool value)
+{
+	_hasReachedSize = value;
+	
+}
+

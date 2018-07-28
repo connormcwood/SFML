@@ -43,7 +43,6 @@ public:
 
 protected: 
 	bool isAlive = true;
-
 	bool _canFire = false;
 };
 

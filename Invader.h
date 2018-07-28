@@ -19,13 +19,16 @@ public:
 	Collision GetCollision() { return Collision(_invader); }
 	sf::Sprite& GetSprite() { return _invader; }
 
+	static void setDirection(int value);
+	static int getDirection();
+
 private:
 	GameDataRef _data;
 	sf::Sprite _invader;
 	sf::Clock _track;
 	sf::Clock _missleCooldown;
-	int _direction = 1; // E = 1 W = 0
 	std::vector<Missle> Missles;
 
+	static int _direction; // -1 Left 0 Not Moving 1 Rgiht
 };
 

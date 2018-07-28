@@ -47,6 +47,13 @@ void Character::Update(float dt)
 {
 	_character.move(sf::Vector2f(_playerVelocityX, 0));
 
+	if (_character.getPosition().x <= (LOWEST_SPRITE_X + 30)) {
+		_character.setPosition(LOWEST_SPRITE_X + 30, _character.getPosition().y);
+	}
+	else if (_character.getPosition().x >= (HIGHEST_SPRITE_X - 30)) {
+		_character.setPosition(HIGHEST_SPRITE_X - 30, _character.getPosition().y);
+	}
+
 	_playerPosX = _character.getPosition().x;
 	_playerPosY = _character.getPosition().y;
 
