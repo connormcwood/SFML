@@ -7,6 +7,7 @@ GameState::GameState(GameDataRef data) : _data(data)
 {
 	sf::View view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT));
 
+
 }
 
 GameState::~GameState()
@@ -14,7 +15,7 @@ GameState::~GameState()
 }
 
 void GameState::Init()
-{;
+{
 	font = new sf::Font();
 	if (!(*font).loadFromFile("opensans.ttf")) {
 		std::cout << "Couldnt Load Font" << std::endl;
@@ -45,7 +46,6 @@ void GameState::Init()
 	}
 	this->_data->manager.AddSprite(new Character(_data));
 
-	this->_data->manager.CheckDirectionClear(3, false);
 	//this->_data->manager.AddSprite(new Invader(_data, (1 * 55.0f) + 155.0f, (1 * 50.0f) + 100.0f));
 }
 

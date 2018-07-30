@@ -19,6 +19,7 @@ public:
 	virtual sf::Sprite& GetSprite() = 0;
 	virtual Collision GetCollision() = 0;
 	virtual void Delete() = 0;
+	virtual int getIndex() = 0;
 
 	bool GetCanFire() {
 		return _canFire;

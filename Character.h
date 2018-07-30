@@ -16,6 +16,7 @@ public:
 	void Draw();
 	void UpdateInput(float dt);
 	void Delete();
+	int getIndex() { return 0; }
 
 	sf::Sprite& GetSprite() { return _character; }
 

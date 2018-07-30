@@ -3,11 +3,19 @@
 #include "DeathObserver.h"
 
 int Invader::_direction;
+int Invader::_totalInvaders;
 
 Invader::Invader(GameDataRef data, float startX, float startY) : _data(data)
 {
 	DeathObserver* dObsPtr = new DeathObserver(this, data);
-	std::cout << "Invader: " << this << std::endl;
+
+	setTotal(getTotal() + 1);
+	_index = getTotal();
+
+	if (_index < 37) {
+		this->_data->manager.addInvaderIndex(getIndex());
+	}
+
  	_invader.setTexture(this->_data->assets.GetTexture("InvaderA2"));
 	_invader.setOrigin(sf::Vector2f(_invader.getLocalBounds().width / 2, _invader.getLocalBounds().height / 2));
 	_invader.setPosition(startX, startY);
@@ -20,15 +28,16 @@ Invader::Invader(GameDataRef data, float startX, float startY) : _data(data)
 
 Invader::~Invader()
 {
+
 }
 
 void Invader::Update(float dt)
 {
 	if (_direction == -1) {
-		_invader.setPosition(_invader.getPosition().x - 1, _invader.getPosition().y + this->_data->manager.getVerticalOffset());
+		_invader.setPosition(_invader.getPosition().x - 0.5, _invader.getPosition().y + this->_data->manager.getVerticalOffset());
 	}
 	else if (_direction == 1) {
-		_invader.setPosition(_invader.getPosition().x + 1, _invader.getPosition().y + this->_data->manager.getVerticalOffset());
+		_invader.setPosition(_invader.getPosition().x + 0.5, _invader.getPosition().y + this->_data->manager.getVerticalOffset());
 	}
 
 	if (_invader.getPosition().x == HIGHEST_SPRITE_X) {
@@ -41,7 +50,8 @@ void Invader::Update(float dt)
 	}
 
 	sf::Time _elapsed = _track.getElapsedTime();
-	if (_elapsed.asSeconds() > 1 && GetCanFire() == true) {
+
+	if (_elapsed.asSeconds() > 1 && rand() % 60 + 1 == 3 && this->_data->manager.indexExist(getIndex() + 9) == false) {
 		this->_data->manager.AddSprite(new Missle(_data, _invader.getPosition().x, _invader.getPosition().y + 25, false));
 		_track.restart();
 	}
@@ -70,4 +80,14 @@ void Invader::setDirection(int value)
 int Invader::getDirection()
 {
 	return _direction;
+}
+
+int Invader::getTotal()
+{
+	return _totalInvaders;
+}
+
+void Invader::setTotal(int value)
+{
+	_totalInvaders = value;
 }

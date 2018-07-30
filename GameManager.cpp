@@ -1,5 +1,6 @@
 #include "GameManager.h"
 #include <iostream>
+#include <algorithm>
 #include "Definitions.h"
 #include "Invader.h"
 
@@ -100,6 +101,7 @@ void GameManager::UpdateInput(float dt)
 
 bool GameManager::Clear()
 {
+	clearInvaderIndex();
 	garbageCollection.clear();
 	std::vector<SpriteObject*>::iterator spritesItr;
 	for (spritesItr = sprites.begin(); spritesItr != sprites.end();) {
@@ -185,5 +187,29 @@ void GameManager::setReachedSide(bool value)
 {
 	_hasReachedSize = value;
 	
+}
+
+void GameManager::addInvaderIndex(int index)
+{
+	invaderIndex.push_back(index);
+}
+
+void GameManager::removeInvaderIndex(int index)
+{
+	invaderIndex.erase(std::remove(invaderIndex.begin(), invaderIndex.end(), index), invaderIndex.end());
+}
+
+bool GameManager::indexExist(int index)
+{
+	if (std::find(invaderIndex.begin(), invaderIndex.end(), index) != invaderIndex.end()) {
+		return true;
+	}
+	return false;
+}
+
+void GameManager::clearInvaderIndex()
+{
+	Invader::setTotal(0);
+	invaderIndex.clear();
 }
 
