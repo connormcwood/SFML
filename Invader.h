@@ -30,9 +30,10 @@ private:
 	GameDataRef _data;
 	sf::Sprite _invader;
 	sf::Clock _track;
+	sf::Clock _animation;
 	sf::Clock _missleCooldown;
 	std::vector<Missle> Missles;
-
+	sf::IntRect rectSourceSprite = { 0, 0, 48, 32 };
 	int _index;
 
 	static int _totalInvaders;

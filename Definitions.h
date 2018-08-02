@@ -12,6 +12,8 @@
 #define MAIN_STYLESHEET_IMAGE "res/img/spritesheet.png" 
 #define MAIN_STYLESHEET_XML "res/img/spritesheet.xml"
 
+#define INVADER_STYLESHEET_PATH "res/img/invader_spritesheet.png"
+
 #define PLAYER_MAX_SPEED 7.5f
 #define PLAYER_ACCELERATION 0.5f
 #define PLAYER_MOVEMENT_FRICTION 0.8f

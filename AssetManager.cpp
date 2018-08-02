@@ -39,6 +39,14 @@ sf::Font &AssetManager::GetFont(std::string name)
 bool AssetManager::LoadSpriteSheets()
 {
 	LoadSpriteSheet("main_stylesheet", MAIN_STYLESHEET_IMAGE, MAIN_STYLESHEET_XML);
+
+	std::string name = "invader_spritesheet";
+
+	sf::Texture tex;
+	if (tex.loadFromFile(INVADER_STYLESHEET_PATH, sf::IntRect(0, 0, 97, 32))) {
+		this->_textures[name] = tex;
+	}
+
 	_hasLoadedSpreadSheets = true;
 	std::cout << "Loaded." << std::endl;
 	return true;

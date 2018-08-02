@@ -12,12 +12,12 @@ public:
 	~DeathObserver();
 	void SetSpriteObj(SpriteObject* spriteObj);
 	SpriteObject* GetSpriteObj();
-	SpriteObject* _sprite;
+
 	void Update() {
-		std::cout << GetSpriteObj()->getIndex() << std::endl;
 		this->_data->manager.removeInvaderIndex(GetSpriteObj()->getIndex());
 	}
 private:
 	GameDataRef _data;
+	SpriteObject* _sprite;
 };
 

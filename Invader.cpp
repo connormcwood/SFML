@@ -15,8 +15,10 @@ Invader::Invader(GameDataRef data, float startX, float startY) : _data(data)
 	if (_index < 37) {
 		this->_data->manager.addInvaderIndex(getIndex());
 	}
+	
+	_invader.setTexture(this->_data->assets.GetTexture("invader_spritesheet"));
+	_invader.setTextureRect(rectSourceSprite);
 
- 	_invader.setTexture(this->_data->assets.GetTexture("InvaderA2"));
 	_invader.setOrigin(sf::Vector2f(_invader.getLocalBounds().width / 2, _invader.getLocalBounds().height / 2));
 	_invader.setPosition(startX, startY);
 
@@ -50,6 +52,17 @@ void Invader::Update(float dt)
 	}
 
 	sf::Time _elapsed = _track.getElapsedTime();
+	sf::Time _animationElapsed = _animation.getElapsedTime();
+	if (_animationElapsed.asSeconds() > 0.5) {
+		if (rectSourceSprite.left == 0) {
+			rectSourceSprite.left = 49;
+		}
+		else {
+			rectSourceSprite.left = 0;
+		}
+		_invader.setTextureRect(rectSourceSprite);
+		_animation.restart();
+	}
 
 	if (_elapsed.asSeconds() > 1 && rand() % 60 + 1 == 3 && this->_data->manager.indexExist(getIndex() + 9) == false) {
 		this->_data->manager.AddSprite(new Missle(_data, _invader.getPosition().x, _invader.getPosition().y + 25, false));

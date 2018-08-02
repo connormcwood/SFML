@@ -31,8 +31,8 @@ void SplashState::Init()
 	_loadingBar.setPosition((SCREEN_WIDTH / 2) - (_loadingBar.getLocalBounds().width / 2), SCREEN_HEIGHT / 2);
 	_loadingBox.setPosition((SCREEN_WIDTH / 2) - (_loadingBox.getLocalBounds().width / 2), SCREEN_HEIGHT / 2);
 
-	_loadingBox.setSize(sf::Vector2<float>(255, 10));
-	_loadingBar.setSize(sf::Vector2<float>(0, 10));
+	_loadingBox.setSize(sf::Vector2f(255, 10));
+	_loadingBar.setSize(sf::Vector2f(0, 10));
 
 	std::thread t1(&AssetManager::LoadSpriteSheets, std::ref(this->_data->assets));
 	t1.detach();
