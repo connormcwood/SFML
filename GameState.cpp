@@ -8,6 +8,7 @@ GameState::GameState(GameDataRef data) : _data(data)
 	sf::View view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT));
 
 
+
 }
 
 GameState::~GameState()
@@ -20,6 +21,7 @@ void GameState::Init()
 	if (!(*font).loadFromFile("opensans.ttf")) {
 		std::cout << "Couldnt Load Font" << std::endl;
 	}
+
 
 	fpsText = sf::Text();
 	fpsText.setFont(*font);

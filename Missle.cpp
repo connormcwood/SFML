@@ -1,12 +1,20 @@
 #include "Missle.h"
 
-
+int Missle::_totalMissles;
 
 Missle::Missle(GameDataRef data, float startX, float startY, bool isVertical) : _data(data), isVertical(isVertical)
 {
+	DeathObserver* dObsPtr = new DeathObserver(this, data);
+
 	_missle.setTexture(this->_data->assets.GetTexture("Bullet"));
 	_missle.setOrigin(sf::Vector2f(_missle.getLocalBounds().width / 2, _missle.getLocalBounds().height / 2));
 	_missle.setPosition(startX, startY);	
+
+	sound.setBuffer(*(this->_data->assets.GetSoundBuffer("shoot")));
+
+	Missle::setTotal(Missle::getTotal() + 1);
+
+	sound.play();
 }
 
 
@@ -44,4 +52,19 @@ void Missle::UpdateInput(float dt)
 void Missle::Delete()
 {
 	SetAlive(false);
+}
+
+void Missle::onDeath()
+{
+	setTotal(Missle::getTotal() - 1);
+}
+
+int Missle::getTotal()
+{
+	return _totalMissles;
+}
+
+void Missle::setTotal(int value)
+{
+	_totalMissles = value;
 }

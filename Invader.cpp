@@ -1,6 +1,7 @@
 #include "Invader.h"
 #include <time.h> 
 #include "DeathObserver.h"
+#include <SFML\Audio.hpp>
 
 int Invader::_direction;
 int Invader::_totalInvaders;
@@ -9,11 +10,11 @@ Invader::Invader(GameDataRef data, float startX, float startY) : _data(data)
 {
 	DeathObserver* dObsPtr = new DeathObserver(this, data);
 
-	setTotal(getTotal() + 1);
-	_index = getTotal();
+	Invader::setTotal(Invader::getTotal() + 1);
+	_index = Invader::getTotal();
 
 	if (_index < 37) {
-		this->_data->manager.addInvaderIndex(getIndex());
+		this->_data->manager.addInvaderIndex(Invader::getIndex());
 	}
 	
 	_invader.setTexture(this->_data->assets.GetTexture("invader_spritesheet"));
@@ -24,6 +25,8 @@ Invader::Invader(GameDataRef data, float startX, float startY) : _data(data)
 
 	setDirection(1);
 
+	sound.setBuffer(*(this->_data->assets.GetSoundBuffer("invader_death")));
+	//death.setBuffer(*(this->_data->assets.GetSoundBuffer("explosion")));
 	srand(time(NULL));
 }
 
@@ -63,8 +66,9 @@ void Invader::Update(float dt)
 		_invader.setTextureRect(rectSourceSprite);
 		_animation.restart();
 	}
-
-	if (_elapsed.asSeconds() > 1 && rand() % 60 + 1 == 3 && this->_data->manager.indexExist(getIndex() + 9) == false) {
+	
+	if (_elapsed.asSeconds() > 1 && rand() % 60 + 1 == 3 && (Missle::getTotal() < MAX_MISSLE) && this->_data->manager.indexExist(getIndex() + 9) == false) {
+		std::cout << Missle::getTotal() << std::endl;
 		this->_data->manager.AddSprite(new Missle(_data, _invader.getPosition().x, _invader.getPosition().y + 25, false));
 		_track.restart();
 	}
@@ -83,6 +87,15 @@ void Invader::Delete()
 {
 	this->_data->manager.SetScore(this->_data->manager.GetScore() + 1);
 	SetAlive(false);
+}
+
+void Invader::onDeath()
+{
+	
+	sound.play();
+
+	std::cout << "Called onDeath" << std::endl;
+	this->_data->manager.removeInvaderIndex(Invader::getIndex());
 }
 
 void Invader::setDirection(int value)

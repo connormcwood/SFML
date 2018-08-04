@@ -4,6 +4,7 @@
 #include "SpriteObject.h"
 #include "Collision.h"
 #include "Definitions.h"
+#include "DeathObserver.h"
 
 class Missle : public SpriteObject
 {
@@ -15,6 +16,7 @@ public:
 	void Draw();
 	void UpdateInput(float dt);
 	void Delete();
+	void onDeath();
 	int getIndex() { return 0; }
 
 	Collision GetCollision() { return Collision(_missle); }
@@ -26,6 +28,9 @@ public:
 
 	bool isVertical;
 
+	static int getTotal();
+	static void setTotal(int value);
+
 private:
 	GameDataRef _data;
 	sf::Sprite _missle;
@@ -34,6 +39,7 @@ private:
 
 	bool toBeDeleted = false;
 
+	static int _totalMissles;
 	float _acceleration = 1.5f;
 };
 

@@ -43,6 +43,10 @@ void Character::Delete()
 	//this->_data->machine.AddState(StateRef(new GameState(_data)));
 }
 
+void Character::onDeath()
+{
+}
+
 void Character::Update(float dt)
 {
 	_character.move(sf::Vector2f(_playerVelocityX, 0));

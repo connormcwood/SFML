@@ -14,7 +14,8 @@ public:
 	SpriteObject* GetSpriteObj();
 
 	void Update() {
-		this->_data->manager.removeInvaderIndex(GetSpriteObj()->getIndex());
+		GetSpriteObj()->onDeath();
+		//this->_data->manager.removeInvaderIndex(GetSpriteObj()->getIndex());
 	}
 private:
 	GameDataRef _data;

@@ -34,7 +34,7 @@ void SplashState::Init()
 	_loadingBox.setSize(sf::Vector2f(255, 10));
 	_loadingBar.setSize(sf::Vector2f(0, 10));
 
-	std::thread t1(&AssetManager::LoadSpriteSheets, std::ref(this->_data->assets));
+	std::thread t1(&AssetManager::LoadAssets, std::ref(this->_data->assets));
 	t1.detach();
 
 	std::cout << "Completed In Splash" << std::endl;

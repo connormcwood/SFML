@@ -21,3 +21,10 @@
 
 #define HIGHEST_SPRITE_X 768
 #define LOWEST_SPRITE_X 0
+
+#define MAX_MISSLE 6
+
+#define SOUND_BANG_PATH "res/sounds/bang.ogg"
+#define SOUND_EXPLOSION_PATH "res/sounds/explosion.ogg"
+#define SOUND_INVADER_DEATH_PATH "res/sounds/invaderkilled.ogg"
+#define SOUND_SHOOT_PATH "res/sounds/shoot.ogg"

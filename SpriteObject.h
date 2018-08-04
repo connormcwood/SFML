@@ -1,5 +1,5 @@
 #pragma once
-
+#include <SFML\Audio.hpp>
 #include "Collision.h"
 #include "Observer.h"
 #include <vector>
@@ -20,6 +20,8 @@ public:
 	virtual Collision GetCollision() = 0;
 	virtual void Delete() = 0;
 	virtual int getIndex() = 0;
+
+	virtual void onDeath() = 0;
 
 	bool GetCanFire() {
 		return _canFire;
@@ -45,6 +47,8 @@ public:
 protected: 
 	bool isAlive = true;
 	bool _canFire = false;
+	
+	sf::Sound sound;
 };
 
 

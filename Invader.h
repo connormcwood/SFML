@@ -15,6 +15,7 @@ public:
 	void UpdateInput(float dt);
 	void Draw();
 	void Delete();
+	void onDeath();
 	int getIndex() { return _index; }
 
 	Collision GetCollision() { return Collision(_invader); }
@@ -26,6 +27,7 @@ public:
 	static int getTotal();
 	static void setTotal(int value);
 
+	
 private:
 	GameDataRef _data;
 	sf::Sprite _invader;
@@ -34,6 +36,9 @@ private:
 	sf::Clock _missleCooldown;
 	std::vector<Missle> Missles;
 	sf::IntRect rectSourceSprite = { 0, 0, 48, 32 };
+
+	sf::Sound death;
+
 	int _index;
 
 	static int _totalInvaders;

@@ -6,6 +6,16 @@ AssetManager::AssetManager()
 	std::cout << "Asset Manager Created" << std::endl;
 }
 
+AssetManager::~AssetManager()
+{
+	delete GetSoundBuffer("shoot");
+	delete GetSoundBuffer("invader_death");
+	delete GetSoundBuffer("explosion");
+	delete GetSoundBuffer("bang");
+	_sounds.clear();
+
+}
+
 void AssetManager::LoadTexture(std::string name, std::string fileName)
 {
 	sf::Texture tex;
@@ -36,10 +46,13 @@ sf::Font &AssetManager::GetFont(std::string name)
 	return this->_fonts.at(name);
 }
 
-bool AssetManager::LoadSpriteSheets()
+bool AssetManager::LoadAssets()
 {
 	LoadSpriteSheet("main_stylesheet", MAIN_STYLESHEET_IMAGE, MAIN_STYLESHEET_XML);
-
+	LoadSoundBuffer("bang", SOUND_BANG_PATH);
+	LoadSoundBuffer("explosion", SOUND_EXPLOSION_PATH);
+	LoadSoundBuffer("invader_death", SOUND_INVADER_DEATH_PATH);
+	LoadSoundBuffer("shoot", SOUND_SHOOT_PATH);
 	std::string name = "invader_spritesheet";
 
 	sf::Texture tex;
@@ -92,6 +105,24 @@ int AssetManager::LoadSpriteSheet(std::string name, std::string fileName, const 
 sf::Image & AssetManager::GetSpriteSheet(std::string name)
 {
 	return this->_spritesheets.at(name);
+}
+
+bool AssetManager::LoadSoundBuffer(std::string name, std::string fileName)
+{
+	sf::SoundBuffer * sound = new sf::SoundBuffer();
+
+	if (!sound->loadFromFile(fileName)) {
+		return false;
+	}
+
+	this->_sounds[name] = sound;
+
+	return true;
+}
+
+sf::SoundBuffer * AssetManager::GetSoundBuffer(std::string name)
+{
+	return this->_sounds.at(name);
 }
 
 float AssetManager::GetStatus()
