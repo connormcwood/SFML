@@ -38,13 +38,13 @@ void Character::UpdateInput(float dt)
 
 void Character::Delete()
 {
+	this->_data->manager.setHealth(this->_data->manager.getHealth() - 1);
 	SetAlive(false);
-	this->_data->manager.SetHealth(this->_data->manager.GetHealth() - 1);
-	//this->_data->machine.AddState(StateRef(new GameState(_data)));
 }
 
 void Character::onDeath()
 {
+	
 }
 
 void Character::Update(float dt)

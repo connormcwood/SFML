@@ -81,7 +81,7 @@ void GameManager::Draw()
 	std::vector<SpriteObject*> spritesCopy = sprites; //Copy The Vector As The Vector Memory May Change When New Sprites Are Added
 	std::vector<SpriteObject*>::iterator spritesItr;
 
-	SetScore(GetScore() - (GetScore() + 1 / 10));
+	//SetScore(GetScore() - (GetScore() + 1 / 10));
 	
 	for (spritesItr = spritesCopy.begin(); spritesItr != spritesCopy.end(); spritesItr++) {
 		SpriteObject* object = *spritesItr;
@@ -111,12 +111,12 @@ bool GameManager::Clear()
 	return true;
 }
 
-void GameManager::SetFPS(float fps)
+void GameManager::setFPS(float fps)
 {
 	_fps = fps;
 }
 
-float GameManager::GetFPS()
+float GameManager::getFPS()
 {
 	return _fps;
 }
@@ -158,22 +158,23 @@ int GameManager::getVerticalOffset()
 	return _verticalOffset;
 }
 
-int GameManager::GetScore()
+int GameManager::getScore()
 {
 	return _score;
 }
 
-void GameManager::SetScore(int value)
+void GameManager::setScore(int value)
 {
+	std::cout << "Score:" << _score << std::endl;
 	_score = value;
 }
 
-int GameManager::GetHealth()
+int GameManager::getHealth()
 {
 	return _health;
 }
 
-void GameManager::SetHealth(int value)
+void GameManager::setHealth(int value)
 {
 	_health = value;
 }

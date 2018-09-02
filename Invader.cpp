@@ -5,6 +5,7 @@
 
 int Invader::_direction;
 int Invader::_totalInvaders;
+int Invader::_deadInvaders;
 
 Invader::Invader(GameDataRef data, float startX, float startY) : _data(data)
 {
@@ -16,8 +17,17 @@ Invader::Invader(GameDataRef data, float startX, float startY) : _data(data)
 	if (_index < 37) {
 		this->_data->manager.addInvaderIndex(Invader::getIndex());
 	}
+
+	if (_index <= 9) {
+		_invader.setTexture(this->_data->assets.GetTexture("invader_spritesheet2"));
+	}
+	else if(_index >= 10 && _index <= 27) {
+		_invader.setTexture(this->_data->assets.GetTexture("invader_spritesheet3"));
+	}
+	else {
+		_invader.setTexture(this->_data->assets.GetTexture("invader_spritesheet"));
+	}
 	
-	_invader.setTexture(this->_data->assets.GetTexture("invader_spritesheet"));
 	_invader.setTextureRect(rectSourceSprite);
 
 	_invader.setOrigin(sf::Vector2f(_invader.getLocalBounds().width / 2, _invader.getLocalBounds().height / 2));
@@ -25,8 +35,6 @@ Invader::Invader(GameDataRef data, float startX, float startY) : _data(data)
 
 	setDirection(1);
 
-	sound.setBuffer(*(this->_data->assets.GetSoundBuffer("invader_death")));
-	//death.setBuffer(*(this->_data->assets.GetSoundBuffer("explosion")));
 	srand(time(NULL));
 }
 
@@ -85,17 +93,17 @@ void Invader::Draw()
 
 void Invader::Delete()
 {
-	this->_data->manager.SetScore(this->_data->manager.GetScore() + 1);
 	SetAlive(false);
 }
 
 void Invader::onDeath()
-{
-	
-	sound.play();
-
+{	
+	this->_data->assets.PlaySound("invader_death");
+	Invader::setDeadTotal(Invader::getDeadTotal() + 1);
+	this->_data->manager.setScore(this->_data->manager.getScore() + 1);
+	this->_data->manager.removeInvaderIndex(getIndex());
 	std::cout << "Called onDeath" << std::endl;
-	this->_data->manager.removeInvaderIndex(Invader::getIndex());
+
 }
 
 void Invader::setDirection(int value)
@@ -116,4 +124,14 @@ int Invader::getTotal()
 void Invader::setTotal(int value)
 {
 	_totalInvaders = value;
+}
+
+int Invader::getDeadTotal()
+{
+	return _deadInvaders;
+}
+
+void Invader::setDeadTotal(int value)
+{
+	_deadInvaders = value;
 }

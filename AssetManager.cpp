@@ -8,11 +8,7 @@ AssetManager::AssetManager()
 
 AssetManager::~AssetManager()
 {
-	delete GetSoundBuffer("shoot");
-	delete GetSoundBuffer("invader_death");
-	delete GetSoundBuffer("explosion");
-	delete GetSoundBuffer("bang");
-	_sounds.clear();
+	//_sounds.clear();
 
 }
 
@@ -29,6 +25,14 @@ void AssetManager::LoadTexture(std::string name, std::string fileName)
 sf::Texture &AssetManager::GetTexture(std::string name)
 {
 	return this->_textures.at(name);
+}
+
+void AssetManager::AddTexture(std::string name, std::string fileName)
+{
+	sf::Texture tex;
+	if (tex.loadFromFile(fileName, sf::IntRect(0, 0, 97, 32))) {
+		this->_textures[name] = tex;
+	}
 }
 
 void AssetManager::LoadFont(std::string name, std::string fileName)
@@ -53,12 +57,11 @@ bool AssetManager::LoadAssets()
 	LoadSoundBuffer("explosion", SOUND_EXPLOSION_PATH);
 	LoadSoundBuffer("invader_death", SOUND_INVADER_DEATH_PATH);
 	LoadSoundBuffer("shoot", SOUND_SHOOT_PATH);
-	std::string name = "invader_spritesheet";
 
-	sf::Texture tex;
-	if (tex.loadFromFile(INVADER_STYLESHEET_PATH, sf::IntRect(0, 0, 97, 32))) {
-		this->_textures[name] = tex;
-	}
+	AddTexture("invader_spritesheet", INVADER_STYLESHEET_PATH);
+	AddTexture("invader_spritesheet2", INVADER_STYLESHEET_PATH2);
+	AddTexture("invader_spritesheet3", INVADER_STYLESHEET_PATH3);
+	AddTexture("invader_ufo", UFO_PATH);
 
 	_hasLoadedSpreadSheets = true;
 	std::cout << "Loaded." << std::endl;
@@ -109,9 +112,9 @@ sf::Image & AssetManager::GetSpriteSheet(std::string name)
 
 bool AssetManager::LoadSoundBuffer(std::string name, std::string fileName)
 {
-	sf::SoundBuffer * sound = new sf::SoundBuffer();
+	sf::SoundBuffer sound = sf::SoundBuffer();
 
-	if (!sound->loadFromFile(fileName)) {
+	if (!sound.loadFromFile(fileName)) {
 		return false;
 	}
 
@@ -120,9 +123,15 @@ bool AssetManager::LoadSoundBuffer(std::string name, std::string fileName)
 	return true;
 }
 
-sf::SoundBuffer * AssetManager::GetSoundBuffer(std::string name)
+sf::SoundBuffer & AssetManager::GetSoundBuffer(std::string name)
 {
 	return this->_sounds.at(name);
+}
+
+void AssetManager::PlaySound(std::string name)
+{
+	_sound.setBuffer(GetSoundBuffer(name));
+	_sound.play();
 }
 
 float AssetManager::GetStatus()

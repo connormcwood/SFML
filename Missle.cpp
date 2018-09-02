@@ -10,11 +10,9 @@ Missle::Missle(GameDataRef data, float startX, float startY, bool isVertical) : 
 	_missle.setOrigin(sf::Vector2f(_missle.getLocalBounds().width / 2, _missle.getLocalBounds().height / 2));
 	_missle.setPosition(startX, startY);	
 
-	sound.setBuffer(*(this->_data->assets.GetSoundBuffer("shoot")));
-
 	Missle::setTotal(Missle::getTotal() + 1);
 
-	sound.play();
+	this->_data->assets.PlaySound("shoot");
 }
 
 

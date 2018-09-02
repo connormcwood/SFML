@@ -15,19 +15,19 @@ public:
 	void UpdateInput(float dt);
 	bool Clear();
 
-	void SetFPS(float fps);
-	float GetFPS();
+	void setFPS(float fps);
+	float getFPS();
 
 	void CheckDirectionClear(int direction, bool strictObject);
 
 	void setVerticalOffset(int value);
 	int	getVerticalOffset();
 
-	int GetScore();
-	void SetScore(int value);
+	int getHealth();
+	void setHealth(int value);
 
-	int GetHealth();
-	void SetHealth(int value);
+	int getScore();
+	void setScore(int value);
 
 	bool getReachedSide();
 	void setReachedSide(bool value);

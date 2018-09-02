@@ -13,6 +13,9 @@
 #define MAIN_STYLESHEET_XML "res/img/spritesheet.xml"
 
 #define INVADER_STYLESHEET_PATH "res/img/invader_spritesheet.png"
+#define INVADER_STYLESHEET_PATH2 "res/img/invader_spritesheet2.png"
+#define INVADER_STYLESHEET_PATH3 "res/img/invader_spritesheet3.png"
+#define UFO_PATH "res/img/ufo.png"
 
 #define PLAYER_MAX_SPEED 7.5f
 #define PLAYER_ACCELERATION 0.5f

@@ -5,11 +5,11 @@
 #include "Missle.h"
 #include "Collision.h"
 
-class Invader : public SpriteObject
+class Ufo : public SpriteObject
 {
 public:
-	Invader(GameDataRef data, float startX, float startY);
-	~Invader();
+	Ufo(GameDataRef data, float startX, float startY);
+	~Ufo();
 
 	void Update(float dt);
 	void UpdateInput(float dt);
@@ -18,8 +18,8 @@ public:
 	void onDeath();
 	int getIndex() { return _index; }
 
-	Collision GetCollision() { return Collision(_invader); }
-	sf::Sprite& GetSprite() { return _invader; }
+	Collision GetCollision() { return Collision(_Ufo); }
+	sf::Sprite& GetSprite() { return _Ufo; }
 
 	static void setDirection(int value);
 	static int getDirection();
@@ -29,22 +29,21 @@ public:
 
 	static int getDeadTotal();
 	static void setDeadTotal(int value);
-	
+
 private:
 	GameDataRef _data;
-	sf::Sprite _invader;
+	sf::Sprite _Ufo;
 	sf::Clock _track;
 	sf::Clock _animation;
 	sf::Clock _missleCooldown;
 	std::vector<Missle> Missles;
-	sf::IntRect rectSourceSprite = { 0, 0, 48, 32 };
 
 	sf::Sound death;
 
 	int _index;
 
-	static int _deadInvaders;
-	static int _totalInvaders;
+	static int _deadUfos;
+	static int _totalUfos;
 	static int _direction; // -1 Left 0 Not Moving 1 Rgiht
 };
 
