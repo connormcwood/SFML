@@ -31,10 +31,14 @@ public:
 	float GetStatus();
 	void SetStatus(float value);
 
+	float GetVolume();
+	void SetVolume(float value);
+
 	bool GetLoadedSpriteSheets();
 
 	friend class SplashState;
 	float _status;
+
 private:
 	std::map<std::string, sf::Texture> _textures;
 	std::map<std::string, sf::Font> _fonts;
@@ -44,4 +48,5 @@ private:
 	sf::Sound _sound;
 
 	bool _hasLoadedSpreadSheets;
+	float _volume = 0.5;
 };

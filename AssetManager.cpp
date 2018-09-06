@@ -131,6 +131,7 @@ sf::SoundBuffer & AssetManager::GetSoundBuffer(std::string name)
 void AssetManager::PlaySound(std::string name)
 {
 	_sound.setBuffer(GetSoundBuffer(name));
+	_sound.setVolume(GetVolume());
 	_sound.play();
 }
 
@@ -142,6 +143,16 @@ float AssetManager::GetStatus()
 void AssetManager::SetStatus(float value)
 {
 	this->_status = value;
+}
+
+void AssetManager::SetVolume(float value)
+{
+	_volume = value;
+}
+
+float AssetManager::GetVolume()
+{
+	return _volume;
 }
 
 bool AssetManager::GetLoadedSpriteSheets()
