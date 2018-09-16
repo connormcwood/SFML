@@ -8,6 +8,7 @@
 #include "AssetManager.h"
 #include "Definitions.h"
 #include "GameState.h"
+#include "MainMenuState.h"
 
 SplashState::SplashState(GameDataRef data) : _data(data)
 {
@@ -65,7 +66,7 @@ void SplashState::Update(float dt)
 	if (this->_data->assets._hasLoadedSpreadSheets == true)
 	{
 		std::cout << "Completed" << std::endl;
-		_data->machine.AddState(StateRef(new GameState(_data)));
+		_data->machine.AddState(StateRef(new MainMenuState(_data)));
 	}
 }
 

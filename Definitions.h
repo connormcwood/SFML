@@ -17,6 +17,9 @@
 #define INVADER_STYLESHEET_PATH3 "res/img/invader_spritesheet3.png"
 #define UFO_PATH "res/img/ufo.png"
 
+#define MUTE_PATH "res/img/volume-mute.png"
+#define MUTE_PLUS_PATH "res/img/volume-plus.png"
+
 #define PLAYER_MAX_SPEED 7.5f
 #define PLAYER_ACCELERATION 0.5f
 #define PLAYER_MOVEMENT_FRICTION 0.8f

@@ -69,7 +69,7 @@ void GameState::HandleInput(float dt)
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
 		this->_data->manager.Clear();
-		this->_data->machine.AddState(StateRef(new GameState(_data)));
+		this->_data->machine.AddState(StateRef(new MainMenuState(_data)));
 	}
 
 	this->_data->manager.UpdateInput(dt);

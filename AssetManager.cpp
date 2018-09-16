@@ -47,6 +47,7 @@ void AssetManager::LoadFont(std::string name, std::string fileName)
 
 sf::Font &AssetManager::GetFont(std::string name)
 {
+
 	return this->_fonts.at(name);
 }
 
@@ -62,6 +63,11 @@ bool AssetManager::LoadAssets()
 	AddTexture("invader_spritesheet2", INVADER_STYLESHEET_PATH2);
 	AddTexture("invader_spritesheet3", INVADER_STYLESHEET_PATH3);
 	AddTexture("invader_ufo", UFO_PATH);
+
+	AddTexture("sound_mute", MUTE_PATH);
+	AddTexture("sound_plus", MUTE_PLUS_PATH);
+
+	LoadFont("open_sans", "opensans.ttf");
 
 	_hasLoadedSpreadSheets = true;
 	std::cout << "Loaded." << std::endl;
@@ -147,7 +153,16 @@ void AssetManager::SetStatus(float value)
 
 void AssetManager::SetVolume(float value)
 {
-	_volume = value;
+	std::cout << value << std::endl;
+	if (value >= 100) {
+		value = 100;
+	}
+	else if (value <= 0) {
+		value = 0;
+	}
+	else {
+		_volume = value;
+	}
 }
 
 float AssetManager::GetVolume()

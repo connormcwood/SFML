@@ -23,8 +23,6 @@ void Animation::Update(int row, float deltaTime, bool faceRight)
 	currentImage.y = row;
 	totalTime += deltaTime;
 
-	printf("Animation: %i Row: %i\n", uvRect, row);
-
 	if (totalTime >= switchTime)
 	{
 		totalTime -= switchTime;
