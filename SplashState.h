@@ -3,7 +3,6 @@
 #include "State.h"
 #include "Game.h"
 
-
 class SplashState :
 	public State
 {
