@@ -15,6 +15,7 @@ public:
 	void HandleInput(float dt);
 	void Update(float dt);
 	void Draw(float dt);
+	void Destroy();
 
 private:
 	GameDataRef _data;

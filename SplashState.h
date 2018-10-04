@@ -15,6 +15,7 @@ public:
 	void Update(float dt);
 	void Draw(float dt);
 	void UpdateLoadingBar();
+	void Destroy() {}
 
 private:
 	GameDataRef _data;

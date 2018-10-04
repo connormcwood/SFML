@@ -50,5 +50,8 @@ private:
 	int _verticalOffset;
 
 	int _hasReachedSize;
+
+	std::vector<SpriteObject*> spritesCopy;
+	std::vector<SpriteObject*>::iterator spritesItr;
 };
 

@@ -43,6 +43,7 @@ void StateMachine::ProcessStateChanges()
 		{
 			if (this->_isReplacing)
 			{
+				this->_states.top()->Destroy(); //Use for Destroyings Pointers
 				this->_states.pop();
 			}
 			else 

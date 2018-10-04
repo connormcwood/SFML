@@ -6,9 +6,6 @@
 
 GameState::GameState(GameDataRef data) : _data(data)
 {
-	sf::View view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT));
-
-
 
 }
 
@@ -93,4 +90,9 @@ void GameState::Draw(float dt)
 	this->_data->window.draw(healthText);
 	this->_data->window.display();
 
+}
+
+void GameState::Destroy()
+{
+	this->_data->manager.Clear();
 }

@@ -78,24 +78,21 @@ void GameManager::Update(float dt)
 
 void GameManager::Draw()
 {
-	std::vector<SpriteObject*> spritesCopy = sprites; //Copy The Vector As The Vector Memory May Change When New Sprites Are Added
-	std::vector<SpriteObject*>::iterator spritesItr;
-
-	//SetScore(GetScore() - (GetScore() + 1 / 10));
+	spritesCopy = sprites;
 	
 	for (spritesItr = spritesCopy.begin(); spritesItr != spritesCopy.end(); spritesItr++) {
 		SpriteObject* object = *spritesItr;
-		object->Draw();
+		(object)->Draw();
 	}
 }
 
 void GameManager::UpdateInput(float dt)
 {	
-	std::vector<SpriteObject*> spritesCopy = sprites; //Copy The Vector As The Vector Memory May Change When New Sprites Are Added
-	std::vector<SpriteObject*>::iterator spritesItr;
+	spritesCopy = sprites;
 
 	for (spritesItr = spritesCopy.begin(); spritesItr != spritesCopy.end(); spritesItr++) {
-		(*spritesItr)->UpdateInput(dt);
+		SpriteObject* object = *spritesItr;
+		(object)->UpdateInput(dt);
 	}
 }
 

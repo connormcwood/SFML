@@ -17,6 +17,7 @@ public:
 	void HandleInput(float dt);
 	void Update(float dt);
 	void Draw(float dt);
+	void Destroy() {}
 
 	std::string TrimStr(std::string str);
 private:
