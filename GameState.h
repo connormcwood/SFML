@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "Character.h"
 #include "MainMenuState.h"
+#include <SFML/Graphics.hpp>
 
 class GameState :
 	public State
@@ -27,6 +28,7 @@ private:
 	sf::Text fpsText;
 	sf::Text scoreText;
 	sf::Text healthText;
+	sf::Text spriteText;
 	sf::Font * font;
 
 	Character *character;

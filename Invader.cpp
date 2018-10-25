@@ -103,7 +103,6 @@ void Invader::onDeath()
 	this->_data->manager.setScore(this->_data->manager.getScore() + 1);
 	this->_data->manager.removeInvaderIndex(getIndex());
 	std::cout << "Called onDeath" << std::endl;
-
 }
 
 void Invader::setDirection(int value)

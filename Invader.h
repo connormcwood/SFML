@@ -18,6 +18,8 @@ public:
 	void onDeath();
 	int getIndex() { return _index; }
 
+	spriteTypes GetSpriteType() { return INVADER; }
+
 	Collision GetCollision() { return Collision(_invader); }
 	sf::Sprite& GetSprite() { return _invader; }
 
@@ -29,7 +31,7 @@ public:
 
 	static int getDeadTotal();
 	static void setDeadTotal(int value);
-	
+
 private:
 	GameDataRef _data;
 	sf::Sprite _invader;
@@ -46,5 +48,6 @@ private:
 	static int _deadInvaders;
 	static int _totalInvaders;
 	static int _direction; // -1 Left 0 Not Moving 1 Rgiht
+	bool _canCollide = true;
 };
 

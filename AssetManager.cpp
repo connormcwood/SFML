@@ -53,6 +53,7 @@ sf::Font &AssetManager::GetFont(std::string name)
 
 bool AssetManager::LoadAssets()
 {
+	LoadSpriteSheet("barrier_stylesheet", BARRIER_STYLESHEET_IMAGE, BARRIER_STYLESHEET_XML);
 	LoadSpriteSheet("main_stylesheet", MAIN_STYLESHEET_IMAGE, MAIN_STYLESHEET_XML);
 	LoadSoundBuffer("bang", SOUND_BANG_PATH);
 	LoadSoundBuffer("explosion", SOUND_EXPLOSION_PATH);
@@ -94,7 +95,7 @@ int AssetManager::LoadSpriteSheet(std::string name, std::string fileName, const 
 		std::string width = texture.attribute("width").value();
 		std::string height = texture.attribute("height").value();
 
-		if (tex.loadFromFile(MAIN_STYLESHEET_IMAGE, sf::IntRect(std::stoi(x), std::stoi(y), std::stoi(width), std::stoi(height)))){
+		if (tex.loadFromFile(fileName, sf::IntRect(std::stoi(x), std::stoi(y), std::stoi(width), std::stoi(height)))){
 			this->_textures[texture.attribute("name").value()] = tex;
 		}		
 		_status = (iteration / total) * 100;

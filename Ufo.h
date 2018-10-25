@@ -18,8 +18,11 @@ public:
 	void onDeath();
 	int getIndex() { return _index; }
 
+	spriteTypes GetSpriteType() { return UFO; }
+
 	Collision GetCollision() { return Collision(_Ufo); }
 	sf::Sprite& GetSprite() { return _Ufo; }
+
 
 	static void setDirection(int value);
 	static int getDirection();

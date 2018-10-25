@@ -20,12 +20,13 @@ public:
 	int getIndex() { return 0; }
 
 	sf::Sprite& GetSprite() { return _character; }
-
+	spriteTypes GetSpriteType() { return CHARACTER; }
 private:
 	GameDataRef _data;
 	sf::Sprite _character;
 	sf::Clock _track;
 	sf::Clock _missleCooldown;
+	sf::Clock _restartCooldown;
 	Collision GetCollision() { return Collision(_character); }
 
 

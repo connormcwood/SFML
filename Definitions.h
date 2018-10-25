@@ -12,10 +12,16 @@
 #define MAIN_STYLESHEET_IMAGE "res/img/spritesheet.png" 
 #define MAIN_STYLESHEET_XML "res/img/spritesheet.xml"
 
+#define BARRIER_STYLESHEET_IMAGE "res/img/barrier_sheet.png"
+#define BARRIER_STYLESHEET_XML "res/img/barrier_sheet.xml"
+
 #define INVADER_STYLESHEET_PATH "res/img/invader_spritesheet.png"
 #define INVADER_STYLESHEET_PATH2 "res/img/invader_spritesheet2.png"
 #define INVADER_STYLESHEET_PATH3 "res/img/invader_spritesheet3.png"
 #define UFO_PATH "res/img/ufo.png"
+
+#define BARRIER_WIDTH 160
+#define BARRIER_PADDING 10
 
 #define MUTE_PATH "res/img/volume-mute.png"
 #define MUTE_PLUS_PATH "res/img/volume-plus.png"

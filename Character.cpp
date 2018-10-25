@@ -4,7 +4,6 @@
 
 Character::Character(GameDataRef data) : _data(data)
 {
-
 	_character.setTexture(this->_data->assets.GetTexture("Ship"));
 	_character.setOrigin(sf::Vector2f(_character.getLocalBounds().width / 2, _character.getLocalBounds().height / 2));
 	_character.setPosition(SCREEN_HEIGHT / 2, SCREEN_HEIGHT - 100);
@@ -39,12 +38,18 @@ void Character::UpdateInput(float dt)
 void Character::Delete()
 {
 	this->_data->manager.setHealth(this->_data->manager.getHealth() - 1);
-	this->_data->machine.AddState(StateRef(new GameState(_data)));
+	this->_data->manager.setPaused(true);
+	sf::Time _elapsed = _restartCooldown.getElapsedTime();
+	std::cout << _elapsed.asSeconds() << std::endl;
+	while(_elapsed.asSeconds() > 3) {
+		this->_data->machine.AddState(StateRef(new GameState(_data)));
+		break;
+	}
 }
 
 void Character::onDeath()
 {
-	
+
 }
 
 void Character::Update(float dt)

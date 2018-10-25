@@ -1,0 +1,6 @@
+<textureatlas xmlns="http://www.w3.org/1999/xhtml" imagepath="barrier_sheet.png">
+	<subtexture name="Barrier_LeftTop" x="0" y="0" width="45" height="32"></subtexture>
+	<subtexture name="Barrier_Full" x="47" y="0" width="45" height="32"></subtexture>
+	<subtexture name="Barrier_RightTop" x="100" y="0" width="45" height="32"></subtexture>	
+	<subtexture name="Barrier_Middle" x="47" y="33" width="45" height="32"></subtexture>
+</textureatlas>

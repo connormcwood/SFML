@@ -6,9 +6,17 @@
 
 class Observer;
 
+enum spriteTypes {
+	MISSLE,
+	CHARACTER,
+	DEFENCE,
+	INVADER,
+	UFO
+};
+
 class SpriteObject
 {
-	std::vector<Observer*> observerList;
+
 public:
 	SpriteObject();
 	~SpriteObject();
@@ -20,9 +28,10 @@ public:
 	virtual Collision GetCollision() = 0;
 	virtual void Delete() = 0;
 	virtual int getIndex() = 0;
-
 	virtual void onDeath() = 0;
 
+	virtual spriteTypes GetSpriteType() = 0;
+	
 	bool GetCanFire() {
 		return _canFire;
 	}
@@ -44,10 +53,16 @@ public:
 	void Detach(Observer* obs);
 	void Notify();
 
+	bool GetCollide();
+	void SetCollide(bool value);
+
 protected: 
 	bool isAlive = true;
 	bool _canFire = false;
-	
+	bool _canCollide = false;
+
+private:
+	std::vector<Observer*> observerList;
 	sf::Sound sound;
 };
 

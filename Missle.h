@@ -19,6 +19,8 @@ public:
 	void onDeath();
 	int getIndex() { return 0; }
 
+	spriteTypes GetSpriteType() { return MISSLE; }
+
 	Collision GetCollision() { return Collision(_missle); }
 	sf::Int32 GetLifespan() {
 		_lifespan = _track.getElapsedTime();

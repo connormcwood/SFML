@@ -136,6 +136,7 @@
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="DeathObserver.cpp" />
+    <ClCompile Include="Defence.cpp" />
     <ClCompile Include="Definitions.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameManager.cpp" />
@@ -148,6 +149,7 @@
     <ClCompile Include="pugixml.cpp" />
     <ClCompile Include="SplashState.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="SpriteManager.cpp" />
     <ClCompile Include="SpriteObject.cpp" />
     <ClCompile Include="StateMachine.cpp" />
     <ClCompile Include="Ufo.cpp" />
@@ -158,6 +160,7 @@
     <ClInclude Include="Character.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="DeathObserver.h" />
+    <ClInclude Include="Defence.h" />
     <ClInclude Include="Definitions.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameManager.h" />
@@ -170,6 +173,7 @@
     <ClInclude Include="pugiconfig.hpp" />
     <ClInclude Include="pugixml.hpp" />
     <ClInclude Include="SplashState.h" />
+    <ClInclude Include="SpriteManager.h" />
     <ClInclude Include="SpriteObject.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateMachine.h" />

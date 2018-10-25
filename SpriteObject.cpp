@@ -36,3 +36,13 @@ void SpriteObject::Notify()
 	for (Observer* obsItr : observerList)
 		obsItr->Update();
 }
+
+bool SpriteObject::GetCollide()
+{
+	return _canCollide;
+}
+
+void SpriteObject::SetCollide(bool value)
+{
+	_canCollide = value;
+}

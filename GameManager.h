@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML\Graphics.hpp>
+#include "SpriteManager.h"
 #include "SpriteObject.h"
 
 class GameManager
@@ -10,10 +11,14 @@ public:
 	void AddSprite(SpriteObject* sprite);
 	void AddSpriteToGarbage(SpriteObject* spritePtr);
 
+	SpriteManager GetSpriteManager() { return spriteManager;  }
+
 	void Update(float dt);
 	void Draw();
 	void UpdateInput(float dt);
 	bool Clear();
+
+	int getTotalSprites();
 
 	void setFPS(float fps);
 	float getFPS();
@@ -37,6 +42,9 @@ public:
 	bool indexExist(int index);
 	void clearInvaderIndex();
 
+	void setPaused(bool value);
+	bool getPaused();
+
 private:
 	std::vector<SpriteObject*> sprites;
 	std::vector<SpriteObject*> garbageCollection;
@@ -51,7 +59,8 @@ private:
 
 	int _hasReachedSize;
 
-	std::vector<SpriteObject*> spritesCopy;
-	std::vector<SpriteObject*>::iterator spritesItr;
+	bool isPaused = false;
+
+	SpriteManager spriteManager = SpriteManager();
 };
 
