@@ -39,7 +39,7 @@ void GameManager::Update(float dt)
 		setVerticalOffset(0);
 	}
 
-	for (auto sprite : sprites) {
+	for (const auto sprite : sprites) {
 		sprite->Update(dt);
 
 		if (sprite->GetSpriteType() == DEFENCE) {
@@ -52,7 +52,7 @@ void GameManager::Update(float dt)
 			continue;
 		}
 
-		for (auto spriteCopy : sprites) {
+		for (const auto spriteCopy : sprites) {
 			if (sprite == spriteCopy) {
 				continue;
 			}
