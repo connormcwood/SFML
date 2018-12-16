@@ -45,11 +45,42 @@ public:
 	void setPaused(bool value);
 	bool getPaused();
 
+	sf::Clock _time;
+	sf::Clock _animation;
+	sf::Clock _missleCooldown;
+
+	bool canShoot() {
+		if (_missleCooldown.getElapsedTime().asSeconds() > 3) {
+			return true;
+		}
+		return false;
+	}
+
+	bool canAnimate() {
+		if (_animation.getElapsedTime().asSeconds() > 0.5) {
+			return true;
+		}
+		return false;
+	}
+
+	void checkShootReset() {
+		if (_missleCooldown.getElapsedTime().asSeconds() > 3) {
+			_missleCooldown.restart();
+		}
+	}
+
+	void checkAnimateReset() {
+		if (_animation.getElapsedTime().asSeconds() > 0.5) {
+			_animation.restart();
+		}
+	}
+
 private:
 	std::vector<SpriteObject*> sprites;
 	std::vector<SpriteObject*> garbageCollection;
 	std::vector<int> invaderIndex;
 	float _fps = 0;
+
 
 
 	int _score = 0;

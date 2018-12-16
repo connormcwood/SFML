@@ -16,6 +16,8 @@ public:
 	void Draw();
 	void Delete();
 	void onDeath();
+	void UpdateAnimation();
+	bool onCollision() { return true; }
 	int getIndex() { return _index; }
 
 	spriteTypes GetSpriteType() { return INVADER; }
@@ -35,13 +37,14 @@ public:
 private:
 	GameDataRef _data;
 	sf::Sprite _invader;
-	sf::Clock _track;
-	sf::Clock _animation;
-	sf::Clock _missleCooldown;
+
 	std::vector<Missle> Missles;
-	sf::IntRect rectSourceSprite = { 0, 0, 48, 32 };
+	std::map<int, sf::IntRect> _retrievedAnimation;
 
 	sf::Sound death;
+
+	std::string _textureName;
+	int _animationStatus = 0;
 
 	int _index;
 

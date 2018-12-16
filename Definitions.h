@@ -15,9 +15,18 @@
 #define BARRIER_STYLESHEET_IMAGE "res/img/barrier_sheet.png"
 #define BARRIER_STYLESHEET_XML "res/img/barrier_sheet.xml"
 
+#define ANIMATION_STYLESHEET_PATH "res/img/animation_spritesheet.png"
+#define ANIMATION_STYLESHEET_XML "res/img/animation_spritesheet.xml"
+
 #define INVADER_STYLESHEET_PATH "res/img/invader_spritesheet.png"
+#define INVADER_STYLESHEET_XML "res/img/invader_spritesheet.xml"
+
 #define INVADER_STYLESHEET_PATH2 "res/img/invader_spritesheet2.png"
+#define INVADER_STYLESHEET_XML2 "res/img/invader_spritesheet2.xml"
+
 #define INVADER_STYLESHEET_PATH3 "res/img/invader_spritesheet3.png"
+#define INVADER_STYLESHEET_XML3 "res/img/invader_spritesheet3.xml"
+
 #define UFO_PATH "res/img/ufo.png"
 
 #define BARRIER_WIDTH 160

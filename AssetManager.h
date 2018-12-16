@@ -24,6 +24,10 @@ public:
 	bool LoadSoundBuffer(std::string name, std::string fileName);
 	sf::SoundBuffer& GetSoundBuffer(std::string name);
 
+	void SetAnimation(std::string name, sf::IntRect);
+	sf::IntRect GetAnimation(std::string name, int index);
+	size_t GetAnimationSize(std::string name);
+
 	void PlaySound(std::string name);
 
 	bool LoadAssets();
@@ -45,6 +49,8 @@ private:
 	std::map<std::string, sf::Image> _spritesheets;
 	std::map<std::string, sf::SoundBuffer> _sounds;
 
+
+	std::map<std::string, std::map<int, sf::IntRect>> _animation;
 	sf::Sound _sound;
 
 	bool _hasLoadedSpreadSheets;

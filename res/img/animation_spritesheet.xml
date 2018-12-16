@@ -1,0 +1,8 @@
+<textureatlas xmlns="http://www.w3.org/1999/xhtml" imagepath="animation_spritesheet.png" name="Collision">
+	<animationTexture name="Collision">
+		<subtexture name="Collision_One" x="0" y="0" width="44" height="32"></subtexture>
+		<subtexture name="Collision_Two" x="45" y="0" width="44" height="32"></subtexture>
+		<subtexture name="Collision_Three" x="90" y="0" width="44" height="32"></subtexture>	
+		<subtexture name="Collision_Four" x="135" y="0" width="44" height="32"></subtexture>	
+	</animationTexture>
+</textureatlas>

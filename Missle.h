@@ -9,7 +9,7 @@
 class Missle : public SpriteObject
 {
 public:
-	Missle(GameDataRef data, float startX, float startY, bool isVertical);
+	Missle(GameDataRef data, SpriteObject* parent, float startX, float startY, bool isVertical);
 	~Missle();
 
 	void Update(float dt);
@@ -17,6 +17,8 @@ public:
 	void UpdateInput(float dt);
 	void Delete();
 	void onDeath();
+	void UpdateAnimation() { }
+	bool onCollision() { return true; }
 	int getIndex() { return 0; }
 
 	spriteTypes GetSpriteType() { return MISSLE; }
@@ -38,6 +40,7 @@ private:
 	sf::Sprite _missle;
 	sf::Clock _track;
 	sf::Time _lifespan;
+	DeathObserver* _dealthObserverPtr;
 
 	bool toBeDeleted = false;
 

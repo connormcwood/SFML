@@ -16,6 +16,8 @@ public:
 	void Draw();
 	void Delete();
 	void onDeath();
+	void UpdateAnimation() { }
+	bool onCollision() { return true;  }
 	int getIndex() { return _index; }
 
 	spriteTypes GetSpriteType() { return UFO; }

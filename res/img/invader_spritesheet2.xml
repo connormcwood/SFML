@@ -1,0 +1,6 @@
+<textureatlas xmlns="http://www.w3.org/1999/xhtml" imagepath="animation_spritesheet2.png">
+	<animationTexture name="Invader2">
+		<subtexture name="Invader_One" x="0" y="0" width="48" height="32"></subtexture>
+		<subtexture name="Invader_Two" x="49" y="0" width="48" height="32"></subtexture>
+	</animationTexture>
+</textureatlas>

@@ -2,10 +2,11 @@
 
 int Missle::_totalMissles;
 
-Missle::Missle(GameDataRef data, float startX, float startY, bool isVertical) : _data(data), isVertical(isVertical)
+Missle::Missle(GameDataRef data, SpriteObject* parent,  float startX, float startY, bool isVertical) 
+	: _data(data), isVertical(isVertical)
 {
-	DeathObserver* dObsPtr = new DeathObserver(this, data);
-
+	_dealthObserverPtr = new DeathObserver(this, data);
+	SetSpriteObjectPtr(parent);
 	_missle.setTexture(this->_data->assets.GetTexture("Bullet"));
 	_missle.setOrigin(sf::Vector2f(_missle.getLocalBounds().width / 2, _missle.getLocalBounds().height / 2));
 	_missle.setPosition(startX, startY);	
@@ -54,6 +55,9 @@ void Missle::Delete()
 
 void Missle::onDeath()
 {
+	GetSpriteObjectPtr()->SetSpriteObjectPtr(nullptr);
+	delete _dealthObserverPtr;
+
 	setTotal(Missle::getTotal() - 1);
 }
 

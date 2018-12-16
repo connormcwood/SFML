@@ -19,16 +19,20 @@ Invader::Invader(GameDataRef data, float startX, float startY) : _data(data)
 	}
 
 	if (_index <= 9) {
-		_invader.setTexture(this->_data->assets.GetTexture("invader_spritesheet2"));
+		_textureName = "Invader";
 	}
 	else if(_index >= 10 && _index <= 27) {
-		_invader.setTexture(this->_data->assets.GetTexture("invader_spritesheet3"));
+		_textureName = "Invader2";
 	}
 	else {
-		_invader.setTexture(this->_data->assets.GetTexture("invader_spritesheet"));
+		_textureName = "Invader3";
 	}
-	
-	_invader.setTextureRect(rectSourceSprite);
+
+	_retrievedAnimation.insert(std::pair<int, sf::IntRect>(_retrievedAnimation.size(), this->_data->assets.GetAnimation(_textureName, 0)));
+	_retrievedAnimation.insert(std::pair<int, sf::IntRect>(_retrievedAnimation.size(), this->_data->assets.GetAnimation(_textureName, 1)));
+
+	_invader.setTexture(this->_data->assets.GetTexture(_textureName));
+	_invader.setTextureRect(_retrievedAnimation[0]);
 
 	_invader.setOrigin(sf::Vector2f(_invader.getLocalBounds().width / 2, _invader.getLocalBounds().height / 2));
 	_invader.setPosition(startX, startY);
@@ -62,23 +66,10 @@ void Invader::Update(float dt)
 		this->_data->manager.setReachedSide(true);
 	}
 
-	sf::Time _elapsed = _track.getElapsedTime();
-	sf::Time _animationElapsed = _animation.getElapsedTime();
-	if (_animationElapsed.asSeconds() > 0.5) {
-		if (rectSourceSprite.left == 0) {
-			rectSourceSprite.left = 49;
-		}
-		else {
-			rectSourceSprite.left = 0;
-		}
-		_invader.setTextureRect(rectSourceSprite);
-		_animation.restart();
-	}
-	
-	if (_elapsed.asSeconds() > 1 && rand() % 60 + 1 == 3 && (Missle::getTotal() < MAX_MISSLE) && this->_data->manager.indexExist(getIndex() + 9) == false) {
-		std::cout << Missle::getTotal() << std::endl;
-		this->_data->manager.AddSprite(new Missle(_data, _invader.getPosition().x, _invader.getPosition().y + 25, false));
-		_track.restart();
+	if (GetSpriteObjectPtr() == nullptr && rand() % 100 + 1 == 7 && (Missle::getTotal() < MAX_MISSLE) && this->_data->manager.indexExist(getIndex() + 9) == false) {
+		SpriteObject* misslePtr = new Missle(_data, this, _invader.getPosition().x, _invader.getPosition().y + 25, false);
+		SetSpriteObjectPtr(misslePtr);
+		this->_data->manager.AddSprite(misslePtr);
 	}
 }
 
@@ -102,7 +93,17 @@ void Invader::onDeath()
 	Invader::setDeadTotal(Invader::getDeadTotal() + 1);
 	this->_data->manager.setScore(this->_data->manager.getScore() + 1);
 	this->_data->manager.removeInvaderIndex(getIndex());
-	std::cout << "Called onDeath" << std::endl;
+}
+
+void Invader::UpdateAnimation()
+{
+	_invader.setTextureRect(_retrievedAnimation[_animationStatus]);
+	if (_animationStatus == 0) {
+		_animationStatus = 1;
+	}
+	else {
+		_animationStatus = 0;
+	}
 }
 
 void Invader::setDirection(int value)

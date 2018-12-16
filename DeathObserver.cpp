@@ -7,7 +7,7 @@ DeathObserver::DeathObserver(SpriteObject * spriteObj, GameDataRef data)
 }
 DeathObserver::~DeathObserver()
 {
-	std::cout << "Deleted Death Observer" << std::endl;
+
 }
 
 void DeathObserver::SetSpriteObj(SpriteObject * spriteObj)

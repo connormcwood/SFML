@@ -40,6 +40,12 @@ void GameManager::Update(float dt)
 	}
 
 	for (const auto sprite : sprites) {
+		if (canAnimate()) {
+			sprite->UpdateAnimation();
+		}
+	}
+
+	for (const auto sprite : sprites) {
 		sprite->Update(dt);
 
 		if (sprite->GetSpriteType() == DEFENCE) {
@@ -66,12 +72,17 @@ void GameManager::Update(float dt)
 			}
 						
 			if (sprite != spriteCopy && sprite->GetSprite().getGlobalBounds().intersects(spriteCopy->GetSprite().getGlobalBounds())) {
-				AddSpriteToGarbage(sprite);
-				AddSpriteToGarbage(spriteCopy);
+				if (sprite->onCollision() == true) {
+					AddSpriteToGarbage(sprite);
+				}
+
+				if (spriteCopy->onCollision() == true) {
+					AddSpriteToGarbage(spriteCopy);
+				}
+								
 				break;
 			}
 		}
-
 	}
 
 	for (auto garbageSprite : garbageCollection) {
@@ -80,6 +91,7 @@ void GameManager::Update(float dt)
 				(*sprite)->Delete();
 				delete (*sprite);
 				sprite = sprites.erase(sprite);
+				garbageCollection.pop_back();
 			}
 			else {
 				++sprite;
@@ -88,6 +100,9 @@ void GameManager::Update(float dt)
 	}
 
 	garbageCollection.clear(); 
+
+	checkAnimateReset();
+	checkShootReset();
 }
 
 void GameManager::Draw()

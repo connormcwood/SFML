@@ -25,10 +25,10 @@ void Game::Run()
 		frameTime = newTime - currentTime;
 		this->_data->manager.setFPS(1.0f / frameTime);
 
-		if (frameTime > 0.25f)
+		/*if (frameTime > 0.25f)
 		{
 			frameTime = 0.25f;
-		}
+		}*/
 
 		currentTime = newTime; 
 		accumulator += frameTime;

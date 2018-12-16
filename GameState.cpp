@@ -20,8 +20,7 @@ void GameState::Init()
 	if (!(*font).loadFromFile("opensans.ttf")) {
 		std::cout << "Couldnt Load Font" << std::endl;
 	}
-
-
+	
 	fpsText = sf::Text();
 	fpsText.setFont(*font);
 	fpsText.setCharacterSize(12);

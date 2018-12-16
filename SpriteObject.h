@@ -3,6 +3,7 @@
 #include "Collision.h"
 #include "Observer.h"
 #include <vector>
+#include <map>
 
 class Observer;
 
@@ -19,7 +20,7 @@ class SpriteObject
 
 public:
 	SpriteObject();
-	~SpriteObject();
+	virtual ~SpriteObject() = 0;
 
 	virtual void Update(float dt) = 0;
 	virtual void Draw() = 0;
@@ -29,6 +30,8 @@ public:
 	virtual void Delete() = 0;
 	virtual int getIndex() = 0;
 	virtual void onDeath() = 0;
+	virtual bool onCollision() = 0;
+	virtual void UpdateAnimation() = 0;
 
 	virtual spriteTypes GetSpriteType() = 0;
 	
@@ -56,11 +59,19 @@ public:
 	bool GetCollide();
 	void SetCollide(bool value);
 
+	void SetSpriteObjectPtr(SpriteObject* spriteObjectPtr) {
+		_spriteObjectPtr = spriteObjectPtr;
+	}
+	SpriteObject* GetSpriteObjectPtr() {
+		return _spriteObjectPtr;
+	}
+
 protected: 
 	bool isAlive = true;
 	bool _canFire = false;
 	bool _canCollide = false;
-
+	int health;
+	SpriteObject* _spriteObjectPtr;
 private:
 	std::vector<Observer*> observerList;
 	sf::Sound sound;
