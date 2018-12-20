@@ -4,6 +4,7 @@
 #include "SpriteObject.h"
 #include "Missle.h"
 #include "Collision.h"
+#include "DeathObserver.h"
 
 class Ufo : public SpriteObject
 {
@@ -42,6 +43,7 @@ private:
 	sf::Clock _animation;
 	sf::Clock _missleCooldown;
 	std::vector<Missle> Missles;
+	DeathObserver * _dealthObserverPtr;
 
 	sf::Sound death;
 

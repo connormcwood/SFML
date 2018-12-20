@@ -9,7 +9,7 @@ int Invader::_deadInvaders;
 
 Invader::Invader(GameDataRef data, float startX, float startY) : _data(data)
 {
-	DeathObserver* dObsPtr = new DeathObserver(this, data);
+	_dealthObserverPtr = new DeathObserver(this, data);
 
 	Invader::setTotal(Invader::getTotal() + 1);
 	_index = Invader::getTotal();
@@ -84,6 +84,8 @@ void Invader::Draw()
 
 void Invader::Delete()
 {
+	Detach(_dealthObserverPtr);
+	delete _dealthObserverPtr;
 	SetAlive(false);
 }
 

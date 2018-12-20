@@ -45,6 +45,6 @@ private:
 	bool toBeDeleted = false;
 
 	static int _totalMissles;
-	float _acceleration = 1.5f;
+	float _acceleration = MISSLE_ACCELERATION;
 };
 

@@ -20,12 +20,12 @@ void Character::UpdateInput(float dt)
 		if (_playerVelocityX >= -PLAYER_MAX_SPEED) {
 			_playerVelocityX += -PLAYER_ACCELERATION;
 		}
-	}
+	} 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
 		if (_playerVelocityX <= PLAYER_MAX_SPEED) {
 			_playerVelocityX += PLAYER_ACCELERATION;
 		}
-	}	
+	}
 
 	sf::Time _elapsed = _missleCooldown.getElapsedTime();
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && _elapsed.asSeconds() > PLAYER_MISSLE_COOLDOWN && GetSpriteObjectPtr() == nullptr) {

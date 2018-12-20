@@ -44,6 +44,7 @@
 #define LOWEST_SPRITE_X 0
 
 #define MAX_MISSLE 6
+#define MISSLE_ACCELERATION 2.0f
 
 #define SOUND_BANG_PATH "res/sounds/bang.ogg"
 #define SOUND_EXPLOSION_PATH "res/sounds/explosion.ogg"

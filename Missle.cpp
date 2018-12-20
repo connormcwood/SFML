@@ -26,7 +26,7 @@ void Missle::Update(float dt)
 {
 	float _velocityX;
 	if (isVertical == true) {
-		_velocityX = -1 * (_acceleration * _acceleration);
+		_velocityX = -1 * (_acceleration * _acceleration );
 	}
 	else {
 		_velocityX = 1 * (_acceleration * _acceleration);
@@ -51,13 +51,13 @@ void Missle::UpdateInput(float dt)
 void Missle::Delete()
 {
 	SetAlive(false);
+	Detach(_dealthObserverPtr);
+	delete _dealthObserverPtr;
 }
 
 void Missle::onDeath()
 {
 	GetSpriteObjectPtr()->SetSpriteObjectPtr(nullptr);
-	delete _dealthObserverPtr;
-
 	setTotal(Missle::getTotal() - 1);
 }
 

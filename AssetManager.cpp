@@ -1,15 +1,20 @@
 #include "AssetManager.h"
 #include "Definitions.h"
+#include "ImageTexture.h"
+#include "AnimationTexture.h"
 
 AssetManager::AssetManager()
 {
 	std::cout << "Asset Manager Created" << std::endl;
+	imageTexture = new ImageTexture();
+	animationTexture = new AnimationTexture();
 }
 
 AssetManager::~AssetManager()
 {
-	//_sounds.clear();
-
+	delete imageTexture;
+	delete animationTexture;
+	delete texture;
 }
 
 void AssetManager::LoadTexture(std::string name, std::string fileName)
@@ -27,11 +32,32 @@ sf::Texture &AssetManager::GetTexture(std::string name)
 	return this->_textures.at(name);
 }
 
+void AssetManager::AddTexture(std::string name, std::string fileName, sf::IntRect intRect)
+{
+	sf::Texture tex;
+	if (tex.loadFromFile(fileName, intRect)) {
+		this->_textures[name] = tex;
+	}
+}
+
 void AssetManager::AddTexture(std::string name, std::string fileName)
 {
 	sf::Texture tex;
-	if (tex.loadFromFile(fileName, sf::IntRect(0, 0, 97, 32))) {
+	if (tex.loadFromFile(fileName)) {
 		this->_textures[name] = tex;
+	}
+}
+
+void AssetManager::AddTexture(std::string name, std::string fileName, int x, int y, int width, int height)
+{
+	sf::Texture tex;
+	try {
+		if (tex.loadFromFile(fileName, sf::IntRect(x, y, width, height))) {
+			this->_textures[name] = tex;
+		}
+	}
+	catch (int e) {
+		throw e;
 	}
 }
 
@@ -53,98 +79,42 @@ sf::Font &AssetManager::GetFont(std::string name)
 
 bool AssetManager::LoadAssets()
 {
-	LoadSpriteSheet("barrier_stylesheet", BARRIER_STYLESHEET_IMAGE, BARRIER_STYLESHEET_XML);
-	LoadSpriteSheet("main_stylesheet", MAIN_STYLESHEET_IMAGE, MAIN_STYLESHEET_XML);
-	LoadSpriteSheet("animation_stylesheet", ANIMATION_STYLESHEET_PATH, ANIMATION_STYLESHEET_XML);
-	LoadSpriteSheet("invader_spritesheet", INVADER_STYLESHEET_PATH, INVADER_STYLESHEET_XML);
-	LoadSpriteSheet("invader_spritesheet2", INVADER_STYLESHEET_PATH2, INVADER_STYLESHEET_XML2);
-	LoadSpriteSheet("invader_spritesheet3", INVADER_STYLESHEET_PATH3, INVADER_STYLESHEET_XML3);
+	LoadImageSpriteSheet("barrier_stylesheet", BARRIER_STYLESHEET_IMAGE, BARRIER_STYLESHEET_XML);
+	LoadImageSpriteSheet("main_stylesheet", MAIN_STYLESHEET_IMAGE, MAIN_STYLESHEET_XML);
+	LoadAnimationSpriteSheet("animation_stylesheet", ANIMATION_STYLESHEET_PATH, ANIMATION_STYLESHEET_XML);
+	LoadAnimationSpriteSheet("invader_spritesheet", INVADER_STYLESHEET_PATH, INVADER_STYLESHEET_XML);
+	LoadAnimationSpriteSheet("invader_spritesheet2", INVADER_STYLESHEET_PATH2, INVADER_STYLESHEET_XML2);
+	LoadAnimationSpriteSheet("invader_spritesheet3", INVADER_STYLESHEET_PATH3, INVADER_STYLESHEET_XML3);
 
 	LoadSoundBuffer("bang", SOUND_BANG_PATH);
 	LoadSoundBuffer("explosion", SOUND_EXPLOSION_PATH);
 	LoadSoundBuffer("invader_death", SOUND_INVADER_DEATH_PATH);
 	LoadSoundBuffer("shoot", SOUND_SHOOT_PATH);
 
-	//AddTexture("invader_spritesheet", INVADER_STYLESHEET_PATH);
-	//AddTexture("invader_spritesheet2", INVADER_STYLESHEET_PATH2);
-	//AddTexture("invader_spritesheet3", INVADER_STYLESHEET_PATH3);
-
-
-	AddTexture("invader_ufo", UFO_PATH);
-
-	AddTexture("sound_mute", MUTE_PATH);
-	AddTexture("sound_plus", MUTE_PLUS_PATH);
+	AddTexture("invader_ufo", UFO_PATH, sf::IntRect(0, 0, 97, 32));
+	AddTexture("sound_mute", MUTE_PATH, sf::IntRect(0, 0, 97, 32));
+	AddTexture("sound_plus", MUTE_PLUS_PATH, sf::IntRect(0, 0, 97, 32));
 
 	LoadFont("open_sans", "opensans.ttf");
 
-	std::cout << GetAnimation("Collision", 1).left << std::endl;
-
 	_hasLoadedSpreadSheets = true;
-	std::cout << "Loaded." << std::endl;
 	return true;
 }
 
-int AssetManager::LoadSpriteSheet(std::string name, std::string fileName, const char* xmlFileName)
+int AssetManager::LoadImageSpriteSheet(std::string name, std::string fileName, const char* xmlFileName)
 {
-	sf::Texture tex;
-	pugi::xml_document doc;
+	texture = imageTexture;
+	texture->LoadAssetManager(this);
+	texture->CreateTextures(name, fileName, xmlFileName);
 
-	if (!doc.load_file(xmlFileName)) {
-		std::cout << "Couldnt Load" << std::endl;
-	}
+	return 1;
+}
 
-	pugi::xml_node textures = doc.child("textureatlas");
-
-	float total = textures.select_nodes("subtexture").size();
-	float iteration = 0;
-
-	for (pugi::xml_node group = textures.child("regularTexture"); group; group = group.next_sibling("regularTexture")) {
-		for (pugi::xml_node texture = group.child("subtexture"); texture; texture = texture.next_sibling("subtexture"))
-		{
-
-			int x = std::stoi(texture.attribute("x").value());
-			int y = std::stoi(texture.attribute("y").value());
-			int width = std::stoi(texture.attribute("width").value());
-			int height = std::stoi(texture.attribute("height").value());
-
-			if (tex.loadFromFile(fileName, sf::IntRect(x, y, width, height))) {
-				this->_textures[texture.attribute("name").value()] = tex;
-			}
-			_status = (iteration / total) * 100;
-			SetStatus(_status);
-			iteration++;
-		}
-	}
-
-	for (pugi::xml_node group = textures.child("animationTexture"); group; group = group.next_sibling("animationTexture")) {
-		std::string name = group.attribute("name").value();
-
-		for (pugi::xml_node texture = group.child("subtexture"); texture; texture = texture.next_sibling("subtexture"))
-		{
-			int x = std::stoi(texture.attribute("x").value());
-			int y = std::stoi(texture.attribute("y").value());
-			int width = std::stoi(texture.attribute("width").value());
-			int height = std::stoi(texture.attribute("height").value());
-
-
-
-			SetAnimation(name, sf::IntRect(x, y, width, height));
-			
-			_status = (iteration / total) * 100;
-			SetStatus(_status);
-			iteration++;
-		}
-
-		if (tex.loadFromFile(fileName)) {
-			this->_textures[name] = tex;
-		}
-	}
-
-	sf::Image image;
-	if (image.loadFromFile(fileName))
-	{
-		this->_spritesheets[name] = image;
-	}
+int AssetManager::LoadAnimationSpriteSheet(std::string name, std::string fileName, const char* xmlFileName)
+{
+	texture = animationTexture;
+	texture->LoadAssetManager(this);
+	texture->CreateTextures(name, fileName, xmlFileName);
 
 	return 1;
 }

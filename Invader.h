@@ -37,6 +37,7 @@ public:
 private:
 	GameDataRef _data;
 	sf::Sprite _invader;
+	DeathObserver* _dealthObserverPtr;
 
 	std::vector<Missle> Missles;
 	std::map<int, sf::IntRect> _retrievedAnimation;

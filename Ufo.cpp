@@ -1,6 +1,5 @@
 #include "Ufo.h"
 #include <time.h> 
-#include "DeathObserver.h"
 #include <SFML\Audio.hpp>
 
 int Ufo::_direction;
@@ -9,7 +8,7 @@ int Ufo::_deadUfos;
 
 Ufo::Ufo(GameDataRef data, float startX, float startY) : _data(data)
 {
-	DeathObserver* dObsPtr = new DeathObserver(this, data);
+	_dealthObserverPtr = new DeathObserver(this, data);
 
 	Ufo::setTotal(Ufo::getTotal() + 1);
 	_index = Ufo::getTotal();
@@ -68,6 +67,8 @@ void Ufo::Draw()
 
 void Ufo::Delete()
 {
+	Detach(_dealthObserverPtr);
+	delete _dealthObserverPtr;
 	SetAlive(false);
 }
 
@@ -75,8 +76,6 @@ void Ufo::onDeath()
 {
 	this->_data->assets.PlaySound("invader_death");
 	this->_data->manager.setScore(this->_data->manager.getScore() + 10);
-	std::cout << "Called onDeath" << std::endl;
-
 }
 
 void Ufo::setDirection(int value)

@@ -88,6 +88,7 @@ void GameManager::Update(float dt)
 	for (auto garbageSprite : garbageCollection) {
 		for (auto sprite = sprites.begin(); sprite != sprites.end();) {
 			if ((*sprite) == garbageSprite) {
+				(*sprite)->onDeath();
 				(*sprite)->Delete();
 				delete (*sprite);
 				sprite = sprites.erase(sprite);

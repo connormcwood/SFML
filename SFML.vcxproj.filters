@@ -43,6 +43,12 @@
     <Filter Include="Header Files\Observers">
       <UniqueIdentifier>{ebb90a82-345f-454a-a52c-8a856dfcb8e6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Textures">
+      <UniqueIdentifier>{75a06574-4a6e-4802-8a34-3d3149fea570}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Textures">
+      <UniqueIdentifier>{7b3b49c9-b104-47ed-997e-d8b17c1c71d0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -110,6 +116,15 @@
     </ClCompile>
     <ClCompile Include="SpriteManager.cpp">
       <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Source Files\Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageTexture.cpp">
+      <Filter>Source Files\Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationTexture.cpp">
+      <Filter>Source Files\Textures</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -181,6 +196,15 @@
     </ClInclude>
     <ClInclude Include="SpriteManager.h">
       <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Header Files\Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageTexture.h">
+      <Filter>Header Files\Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationTexture.h">
+      <Filter>Header Files\Textures</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
