@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML\Graphics.hpp>
+#include "Definitions.h"
 #include "SpriteManager.h"
 #include "SpriteObject.h"
 
@@ -57,7 +58,7 @@ public:
 	}
 
 	bool canAnimate() {
-		if (_animation.getElapsedTime().asSeconds() > 0.5) {
+		if (_animation.getElapsedTime().asSeconds() > 0.3) {
 			return true;
 		}
 		return false;
@@ -70,7 +71,7 @@ public:
 	}
 
 	void checkAnimateReset() {
-		if (_animation.getElapsedTime().asSeconds() > 0.5) {
+		if (_animation.getElapsedTime().asSeconds() > 0.3) {
 			_animation.restart();
 		}
 	}
@@ -79,15 +80,11 @@ private:
 	std::vector<SpriteObject*> sprites;
 	std::vector<SpriteObject*> garbageCollection;
 	std::vector<int> invaderIndex;
+
 	float _fps = 0;
-
-
-
-	int _score = 0;
-	int _health = 3;
-
+	int _score = DEFAULT_PLAYER_SCORE;
+	int _health = DEFAULT_PLAYER_HEALTH;
 	int _verticalOffset;
-
 	int _hasReachedSize;
 
 	bool isPaused = false;

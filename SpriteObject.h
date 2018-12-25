@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML\Audio.hpp>
+#include "Definitions.h"
 #include "Collision.h"
 #include "Observer.h"
 #include <vector>

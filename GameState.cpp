@@ -12,6 +12,7 @@ GameState::GameState(GameDataRef data) : _data(data)
 
 GameState::~GameState()
 {
+	delete font;
 }
 
 void GameState::Init()
@@ -82,16 +83,21 @@ void GameState::HandleInput(float dt)
 	sf::Event event;
 	while (this->_data->window.pollEvent(event))
 	{
-
 		if (sf::Event::Closed == event.type)
 		{
 			this->_data->window.close();
 		}
-	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-		this->_data->manager.Clear();
-		this->_data->machine.AddState(StateRef(new MainMenuState(_data)));
+		else if (event.type == sf::Event::KeyPressed) {
+			if (event.key.code == sf::Keyboard::P) {
+				std::cout << "Pause Status: " << this->_data->manager.getPaused() << std::endl;
+				this->_data->manager.setPaused(!this->_data->manager.getPaused());
+			}
+			else if (event.key.code == sf::Keyboard::Escape) {
+				this->_data->manager.Clear();
+				this->_data->manager.setPaused(false);
+				this->_data->machine.AddState(StateRef(new MainMenuState(_data)));
+			}
+		}
 	}
 
 	this->_data->manager.UpdateInput(dt);

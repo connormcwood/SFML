@@ -30,6 +30,9 @@ void MainMenuState::Init()
 	volumeText.setFillColor(sf::Color::White);
 	volumeText.setPosition(10, 10);
 	volumeText.setString("Volume: " + TrimStr(std::to_string(this->_data->assets.GetVolume())));
+
+	this->_data->manager.setScore(DEFAULT_PLAYER_SCORE);
+	this->_data->manager.setHealth(DEFAULT_PLAYER_HEALTH);
 }
 
 void MainMenuState::HandleInput(float dt)

@@ -93,7 +93,7 @@ void Invader::onDeath()
 {	
 	this->_data->assets.PlaySound("invader_death");
 	Invader::setDeadTotal(Invader::getDeadTotal() + 1);
-	this->_data->manager.setScore(this->_data->manager.getScore() + 1);
+	this->_data->manager.setScore(this->_data->manager.getScore() + INVADER_DEATH_SCORE);
 	this->_data->manager.removeInvaderIndex(getIndex());
 }
 

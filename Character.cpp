@@ -42,10 +42,14 @@ void Character::Delete()
 	this->_data->manager.setHealth(this->_data->manager.getHealth() - 1);
 	this->_data->manager.setPaused(true);
 	sf::Time _elapsed = _restartCooldown.getElapsedTime();
-	std::cout << _elapsed.asSeconds() << std::endl;
-	while(_elapsed.asSeconds() > 3) {
-		this->_data->machine.AddState(StateRef(new GameState(_data)));
-		break;
+	if (this->_data->manager.getHealth() == 0) {
+		this->_data->machine.AddState(StateRef(new MainMenuState(_data)));
+	}
+	else {
+		while (_elapsed.asSeconds() > 3) {
+			this->_data->machine.AddState(StateRef(new GameState(_data)));
+			break;
+		}
 	}
 }
 

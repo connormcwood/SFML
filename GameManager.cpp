@@ -28,7 +28,7 @@ void GameManager::AddSpriteToGarbage(SpriteObject * spritePtr)
 void GameManager::Update(float dt)
 {
 	if (getPaused() == true) {
-		//return;
+		return;
 	}
 
 	if (getReachedSide() == true) {
