@@ -106,7 +106,7 @@ int AssetManager::LoadImageSpriteSheet(std::string name, std::string fileName, c
 	texture = imageTexture;
 	texture->LoadAssetManager(this);
 	texture->CreateTextures(name, fileName, xmlFileName);
-
+	SetAssets(GetAssets() + 1);
 	return 1;
 }
 
@@ -115,7 +115,7 @@ int AssetManager::LoadAnimationSpriteSheet(std::string name, std::string fileNam
 	texture = animationTexture;
 	texture->LoadAssetManager(this);
 	texture->CreateTextures(name, fileName, xmlFileName);
-
+	SetAssets(GetAssets() + 1);
 	return 1;
 }
 
@@ -133,7 +133,7 @@ bool AssetManager::LoadSoundBuffer(std::string name, std::string fileName)
 	}
 
 	this->_sounds[name] = sound;
-
+	SetAssets(GetAssets() + 1);
 	return true;
 }
 
@@ -171,7 +171,19 @@ float AssetManager::GetStatus()
 
 void AssetManager::SetStatus(float value)
 {
+	std::cout << value << std::endl;
 	this->_status = value;
+}
+
+float AssetManager::GetAssets()
+{
+	return _loadedAssets;
+}
+
+void AssetManager::SetAssets(float value)
+{
+	_loadedAssets = value;
+	SetStatus((GetAssets() / 13) * 100);
 }
 
 void AssetManager::SetVolume(float value)

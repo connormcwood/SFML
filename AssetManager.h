@@ -58,6 +58,9 @@ public:
 	float GetStatus();
 	void SetStatus(float value);
 
+	float GetAssets();
+	void SetAssets(float value);
+
 	float GetVolume();
 	void SetVolume(float value);
 
@@ -65,6 +68,8 @@ public:
 
 	friend class SplashState;
 	friend class Texture;
-	float _status;
+
+	float _loadedAssets = 0.0f;
+	float _status = 0.0f;
 };
 

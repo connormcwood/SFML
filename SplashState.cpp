@@ -57,7 +57,7 @@ void SplashState::HandleInput(float dt)
 void SplashState::Update(float dt)
 {
 	sf::Time _elapsed = _track.getElapsedTime();
-	if (_elapsed.asSeconds() > 0.25)
+	if (_elapsed.asSeconds() > 0.005)
 	{	
 		UpdateLoadingBar();
 		_track.restart();
@@ -65,7 +65,6 @@ void SplashState::Update(float dt)
 	
 	if (this->_data->assets._hasLoadedSpreadSheets == true)
 	{
-		std::cout << "Completed" << std::endl;
 		_data->machine.AddState(StateRef(new MainMenuState(_data)));
 	}
 }

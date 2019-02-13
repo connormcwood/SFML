@@ -57,11 +57,11 @@ void Invader::Update(float dt)
 		_invader.setPosition(_invader.getPosition().x + 0.5, _invader.getPosition().y + this->_data->manager.getVerticalOffset());
 	}
 
-	if (_invader.getPosition().x == HIGHEST_SPRITE_X) {
+	if (_invader.getPosition().x == (HIGHEST_SPRITE_X - _invader.getLocalBounds().width / 2) ) {
 		setDirection(-1);
 		this->_data->manager.setReachedSide(true);
 	}
-	else if (_invader.getPosition().x == LOWEST_SPRITE_X) {
+	else if (_invader.getPosition().x == (LOWEST_SPRITE_X + _invader.getLocalBounds().width / 2) ) {
 		setDirection(1);
 		this->_data->manager.setReachedSide(true);
 	}

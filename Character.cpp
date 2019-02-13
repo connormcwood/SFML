@@ -16,19 +16,19 @@ Character::~Character()
 
 void Character::UpdateInput(float dt)
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 		if (_playerVelocityX >= -PLAYER_MAX_SPEED) {
 			_playerVelocityX += -PLAYER_ACCELERATION;
 		}
 	} 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 		if (_playerVelocityX <= PLAYER_MAX_SPEED) {
 			_playerVelocityX += PLAYER_ACCELERATION;
 		}
 	}
 
 	sf::Time _elapsed = _missleCooldown.getElapsedTime();
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && _elapsed.asSeconds() > PLAYER_MISSLE_COOLDOWN && GetSpriteObjectPtr() == nullptr) {
+	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) && _elapsed.asSeconds() > PLAYER_MISSLE_COOLDOWN && GetSpriteObjectPtr() == nullptr) {
 		SpriteObject* _misslePtr = new Missle(_data, this, _character.getPosition().x, _character.getPosition().y - 25, true);
 		SetSpriteObjectPtr(_misslePtr);
 		this->_data->manager.AddSprite(_misslePtr);

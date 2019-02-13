@@ -38,11 +38,11 @@ void Ufo::Update(float dt)
 		_Ufo.setPosition(_Ufo.getPosition().x + 0.75, _Ufo.getPosition().y + this->_data->manager.getVerticalOffset());
 	}
 
-	if (_Ufo.getPosition().x == HIGHEST_SPRITE_X) {
+	if (_Ufo.getPosition().x == (HIGHEST_SPRITE_X - _Ufo.getLocalBounds().width / 2) ) {
 		setDirection(-1);
 		this->_data->manager.setReachedSide(true);
 	}
-	else if (_Ufo.getPosition().x == LOWEST_SPRITE_X) {
+	else if (_Ufo.getPosition().x == (LOWEST_SPRITE_X - _Ufo.getLocalBounds().width / 2) ) {
 		setDirection(1);
 		this->_data->manager.setReachedSide(true);
 	}
