@@ -13,36 +13,28 @@ Game::Game(int width, int height, std::string title)
 void Game::Run()
 {
 	
-	float newTime, frameTime, interpolation;
+	float interpolation;
 
-	float currentTime = this->_clock.getElapsedTime().asSeconds();
-	float accumulator = 0.0f;
+	float skipTicks = 1000 / _updatesPerSec;
+	float nextUpdate = this->_clock.getElapsedTime().asMilliseconds();
+	float currentTime = this->_clock.getElapsedTime().asMilliseconds();
 
 	while (this->_data->window.isOpen())
 	{
+		currentTime = this->_clock.getElapsedTime().asMilliseconds();
+		
 		this->_data->machine.ProcessStateChanges();
 
-		newTime = this->_clock.getElapsedTime().asSeconds();
-		frameTime = newTime - currentTime;
-		this->_data->manager.setFPS(1.0f / frameTime);
+		while (nextUpdate < currentTime) {
+			float deltaTime = nextUpdate - currentTime;
+			this->_data->machine.GetActiveState()->HandleInput(deltaTime);
+			this->_data->machine.GetActiveState()->Update(deltaTime);
 
-		/*if (frameTime > 0.25f)
-		{
-			frameTime = 0.25f;
-		}*/
-
-		currentTime = newTime; 
-		accumulator += frameTime;
-
-		while (accumulator >= dt)
-		{
-		    this->_data->machine.GetActiveState()->HandleInput(dt);
-			this->_data->machine.GetActiveState()->Update(dt);
-
-			accumulator -= dt;
+			nextUpdate += skipTicks;
 		}
 
-		interpolation = accumulator / dt;
+		interpolation = (currentTime + skipTicks - nextUpdate) / skipTicks;
+		this->_data->manager.setFPS(1.0f / (nextUpdate - currentTime) );
 		this->_data->machine.GetActiveState()->Draw(interpolation);
 	}
 	

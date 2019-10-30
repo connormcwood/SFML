@@ -27,9 +27,8 @@ public:
 	Game(int width, int height, std::string title);
 
 private: 
-	const float dt = 1.0f / 60.0f;
+	const float _updatesPerSec = 60;
 	sf::Clock _clock;
-	float _fps;
 
 	GameDataRef _data = std::make_shared<GameData>();
 
